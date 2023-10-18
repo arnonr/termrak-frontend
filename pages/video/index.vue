@@ -41,7 +41,7 @@ const perPage = ref(12);
 const currentPage = ref(1);
 const totalPage = ref(1);
 const totalItems = ref(0);
-const activeCategory = ref("news-all");
+// const activeCategory = ref("news-all");
 const search = ref({
   is_publish: 1,
 });
