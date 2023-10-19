@@ -175,7 +175,7 @@
                   </NuxtLink>
                 </div>
               </div>
-              <div class="col-xxl-8 col-xl-7 col-lg-7 d-none d-lg-block">
+              <div class="col-xxl-8 col-xl-8 col-lg-8 d-none d-lg-block">
                 <div class="main-menu main-menu-4 main-menu-ff-space">
                   <nav id="mobile-menu">
                     <!-- menus start -->
