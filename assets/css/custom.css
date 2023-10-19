@@ -26,7 +26,7 @@
     display: inline-block;
     font-size: 14px;
     font-weight: 700;
-    color: var(--tp-text-6);
+    color: #fff;
     background: #ffcb05;
     text-align: center;
     font-family: var(--tp-ff-space);
@@ -36,6 +36,10 @@
     z-index: 1;
     text-transform: capitalize;
     border: 2px solid var(--tp-border-5);
+}
+
+.tp-btn-border-yellow:hover {
+    background: #ebba00;
 }
 
 input[type=text],

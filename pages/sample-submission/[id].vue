@@ -517,36 +517,41 @@
                                 <div class="card" style="border: none">
                                   <div class="card-body row">
                                     <div class="col-lg-12">
-                                      <span class="fw-bold"
+                                      <span class="fw-bold text-dark"
                                         >เครื่องมือ/Scientific Instrument : </span
-                                      ><span class="fst-italic">{{
-                                        item.title
-                                      }}</span>
+                                      ><span
+                                        class="text-color-primary fw-bold"
+                                        >{{ item.title }}</span
+                                      >
 
                                       <hr class="hr-dotted" />
                                     </div>
-                                    <div class="col-lg-6 mt-10">
-                                      <span class="fw-bold"
+                                    <div class="col-lg-12 mt-10">
+                                      <span class="fw-bold text-dark"
                                         >วันที่จอง/Booking Date : </span
-                                      ><span class="fst-italic">{{
-                                        dayjs(booking.booking_date).format(
-                                          "DD/MM/YYYY"
-                                        )
-                                      }}</span>
+                                      ><span
+                                        class="text-color-primary fw-bold"
+                                        >{{
+                                        useCookie('lang') == 'en' ? dayjs(booking.booking_date).format(
+                                          "DD/MM/YYYY" 
+                                        ):dayjs(booking.booking_date).locale('th').format(
+                                          "DD MMM BBBB")
+                                        }}</span
+                                      >
                                       <hr class="hr-dotted" />
                                     </div>
 
-                                    <div class="col-lg-6 mt-10">
-                                      <span class="fw-bold"
+                                    <div class="col-lg-12 mt-10">
+                                      <span class="fw-bold text-dark"
                                         >ข้อมูลตัวอย่าง/Example : </span
-                                      ><span class="fst-italic">{{
+                                      ><span class="text-color-primary fw-bold">{{
                                         booking.example
                                       }}</span>
                                       <hr class="hr-dotted" />
                                     </div>
 
                                     <div class="col-lg-12 mt-10">
-                                      <span class="fw-bold"
+                                      <span class="fw-bold text-dark"
                                         >รายการวิเคราะห์/Method List :
                                       </span>
                                       <br />
@@ -592,7 +597,8 @@
 
                                       <div>
                                         <h4
-                                          class="fw-bold text-center mt-20 text-success"
+                                          class="fw-bold text-center mt-20 mb-20 pt-20 pb-20 text-dark"
+                                          style="background-color: #eee;"
                                         >
                                           {{ $t("Total Price") }}
                                           {{ booking.total_price }}.00
@@ -603,10 +609,10 @@
                                       <hr class="hr-dotted" />
                                     </div>
 
-                                    <div class="col-lg-6 mt-10">
-                                      <span class="fw-bold"
+                                    <div class="col-lg-12 mt-10">
+                                      <span class="fw-bold text-dark"
                                         >ชื่อ-นามสกุล/Name Surname : </span
-                                      ><span class="fst-italic">{{
+                                      ><span class="text-color-primary fw-bold">{{
                                         booking.prefix +
                                         booking.firstname +
                                         " " +
@@ -615,65 +621,65 @@
                                       <hr class="hr-dotted" />
                                     </div>
 
-                                    <div class="col-lg-6 mt-10">
-                                      <span class="fw-bold"
+                                    <div class="col-lg-12 mt-10">
+                                      <span class="fw-bold text-dark"
                                         >สถานะ/Member Status : </span
-                                      ><span class="fst-italic">
+                                      ><span class="text-color-primary fw-bold">
                                         {{ booking.member_status.name_th }}
                                       </span>
                                       <hr class="hr-dotted" />
                                     </div>
 
                                     <div class="col-lg-12 mt-10">
-                                      <span class="fw-bold"
+                                      <span class="fw-bold text-dark"
                                         >ชื่อหน่วยงาน/Organization : </span
-                                      ><span class="fst-italic">{{
+                                      ><span class="text-color-primary fw-bold">{{
                                         booking.organization
                                       }}</span>
                                       <hr class="hr-dotted" />
                                     </div>
 
                                     <div class="col-lg-12 mt-10">
-                                      <span class="fw-bold"
+                                      <span class="fw-bold text-dark"
                                         >ที่อยู่ที่สามารถติดต่อได้/Contact
                                         Address : </span
-                                      ><span class="fst-italic">{{
+                                      ><span class="text-color-primary fw-bold">{{
                                         booking.contact_address
                                       }}</span>
                                       <hr class="hr-dotted" />
                                     </div>
 
                                     <div class="col-lg-6 mt-10">
-                                      <span class="fw-bold"
+                                      <span class="fw-bold text-dark"
                                         >โทรศัพท์/Phone :</span
-                                      ><span class="fst-italic">{{
+                                      ><span class="text-color-primary fw-bold">{{
                                         booking.phone
                                       }}</span>
                                       <hr class="hr-dotted" />
                                     </div>
 
                                     <div class="col-lg-6 mt-10">
-                                      <span class="fw-bold">E-mail : </span
-                                      ><span class="fst-italic">{{
+                                      <span class="fw-bold text-dark">E-mail : </span
+                                      ><span class="text-color-primary fw-bold">{{
                                         booking.email
                                       }}</span>
                                       <hr class="hr-dotted" />
                                     </div>
 
                                     <div class="col-lg-12 mt-10">
-                                      <span class="fw-bold"
+                                      <span class="fw-bold text-dark"
                                         >เลขประจำตัวผู้เสียภาษี/Tax ID : </span
-                                      ><span class="fst-italic">{{
+                                      ><span class="text-color-primary fw-bold">{{
                                         booking.tax_id
                                       }}</span>
                                       <hr class="hr-dotted" />
                                     </div>
 
                                     <div class="col-lg-12 mt-10">
-                                      <span class="fw-bold"
+                                      <span class="fw-bold text-dark"
                                         >ที่อยู่ในการออกใบกำกับภาษี/ Invoice
                                         Address : </span
-                                      ><span class="fst-italic">{{
+                                      ><span class="text-color-primary fw-bold">{{
                                         booking.invoice_address
                                       }}</span>
                                       <hr class="hr-dotted" />
@@ -686,7 +692,7 @@
                                     <div class="col">
                                       <div class="tp-button-demo text-center">
                                         <button
-                                          class="tp-btn-border-brown text-uppercase"
+                                          class="tp-btn-border-yellow text-uppercase"
                                           @click="onConfirmSubmit()"
                                         >
                                           {{ $t("Submit Order") }}
@@ -946,7 +952,7 @@ const onConfirmSubmit = async () => {
     confirmButtonText: "Yes, confirm it!",
   }).then((result) => {
     if (result.isConfirmed) {
-        onSubmit();
+      onSubmit();
     }
   });
 };
