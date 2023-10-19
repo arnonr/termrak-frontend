@@ -47,7 +47,7 @@
           <div class="postbox__wrapper" v-if="item">
             <!-- Image -->
             <!-- <div class="postbox__top">
-            </div> -->
+              </div> -->
             <!-- Content -->
             <div class="postbox__main">
               <div class="row">
@@ -298,18 +298,18 @@
                                 </div>
                               </div>
                               <!-- <div class="mt-30 text-center">
-                                <div class="div-btn-sample-submission">
-                                  <div class="col">
-                                    <div class="tp-button-demo text-center">
-                                      <NuxtLink
-                                        to="/sample-submission"
-                                        class="tp-btn-border-brown text-uppercase"
-                                        >{{ $t("Next") }}</NuxtLink
-                                      >
+                                  <div class="div-btn-sample-submission">
+                                    <div class="col">
+                                      <div class="tp-button-demo text-center">
+                                        <NuxtLink
+                                          to="/sample-submission"
+                                          class="tp-btn-border-brown text-uppercase"
+                                          >{{ $t("Next") }}</NuxtLink
+                                        >
+                                      </div>
                                     </div>
                                   </div>
-                                </div>
-                              </div> -->
+                                </div> -->
                               <!--  -->
                             </div>
                             <div
@@ -487,23 +487,23 @@
                                 </div>
                               </div>
                               <!-- <div class="mt-30 text-center">
-                                <div class="div-btn-sample-submission">
-                                  <div class="col">
-                                    <div class="tp-button-demo text-center">
-                                       <NuxtLink
-                                        to="/sample-submission"
-                                        class="tp-btn-border-brown text-uppercase mr-10"
-                                        >{{ $t("Back") }}</NuxtLink
-                                      >
-                                      <NuxtLink
-                                        to="/sample-submission"
-                                        class="tp-btn-border-brown text-uppercase"
-                                        >{{ $t("Next") }}</NuxtLink
-                                      > 
+                                  <div class="div-btn-sample-submission">
+                                    <div class="col">
+                                      <div class="tp-button-demo text-center">
+                                         <NuxtLink
+                                          to="/sample-submission"
+                                          class="tp-btn-border-brown text-uppercase mr-10"
+                                          >{{ $t("Back") }}</NuxtLink
+                                        >
+                                        <NuxtLink
+                                          to="/sample-submission"
+                                          class="tp-btn-border-brown text-uppercase"
+                                          >{{ $t("Next") }}</NuxtLink
+                                        > 
+                                      </div>
                                     </div>
                                   </div>
-                                </div>
-                              </div> -->
+                                </div> -->
                               <!--  -->
                             </div>
                             <div
@@ -517,36 +517,45 @@
                                 <div class="card" style="border: none">
                                   <div class="card-body row">
                                     <div class="col-lg-12">
-                                      <span class="fw-bold"
+                                      <span class="fw-bold text-dark"
                                         >เครื่องมือ/Scientific Instrument : </span
-                                      ><span class="fst-italic">{{
-                                        item.title
-                                      }}</span>
+                                      ><span
+                                        class="text-color-primary fw-bold"
+                                        >{{ item.title }}</span
+                                      >
 
                                       <hr class="hr-dotted" />
                                     </div>
-                                    <div class="col-lg-6 mt-10">
-                                      <span class="fw-bold"
+                                    <div class="col-lg-12 mt-10">
+                                      <span class="fw-bold text-dark"
                                         >วันที่จอง/Booking Date : </span
-                                      ><span class="fst-italic">{{
-                                        dayjs(booking.booking_date).format(
-                                          "DD/MM/YYYY"
-                                        )
-                                      }}</span>
-                                      <hr class="hr-dotted" />
-                                    </div>
-
-                                    <div class="col-lg-6 mt-10">
-                                      <span class="fw-bold"
-                                        >ข้อมูลตัวอย่าง/Example : </span
-                                      ><span class="fst-italic">{{
-                                        booking.example
-                                      }}</span>
+                                      ><span
+                                        class="text-color-primary fw-bold"
+                                        >{{
+                                          useCookie("lang") == "en"
+                                            ? dayjs(
+                                                booking.booking_date
+                                              ).format("DD/MM/YYYY")
+                                            : dayjs(booking.booking_date)
+                                                .locale("th")
+                                                .format("DD MMM BBBB")
+                                        }}</span
+                                      >
                                       <hr class="hr-dotted" />
                                     </div>
 
                                     <div class="col-lg-12 mt-10">
-                                      <span class="fw-bold"
+                                      <span class="fw-bold text-dark"
+                                        >ข้อมูลตัวอย่าง/Example : </span
+                                      ><span
+                                        class="text-color-primary fw-bold"
+                                        >{{ booking.example }}</span
+                                      >
+                                      <hr class="hr-dotted" />
+                                    </div>
+
+                                    <div class="col-lg-12 mt-10">
+                                      <span class="fw-bold text-dark"
                                         >รายการวิเคราะห์/Method List :
                                       </span>
                                       <br />
@@ -592,7 +601,8 @@
 
                                       <div>
                                         <h4
-                                          class="fw-bold text-center mt-20 text-success"
+                                          class="fw-bold text-center mt-20 mb-20 pt-20 pb-20 text-dark"
+                                          style="background-color: #eee"
                                         >
                                           {{ $t("Total Price") }}
                                           {{ booking.total_price }}.00
@@ -603,79 +613,89 @@
                                       <hr class="hr-dotted" />
                                     </div>
 
-                                    <div class="col-lg-6 mt-10">
-                                      <span class="fw-bold"
+                                    <div class="col-lg-12 mt-10">
+                                      <span class="fw-bold text-dark"
                                         >ชื่อ-นามสกุล/Name Surname : </span
-                                      ><span class="fst-italic">{{
-                                        booking.prefix +
-                                        booking.firstname +
-                                        " " +
-                                        booking.surname
-                                      }}</span>
+                                      ><span
+                                        class="text-color-primary fw-bold"
+                                        >{{
+                                          booking.prefix +
+                                          booking.firstname +
+                                          " " +
+                                          booking.surname
+                                        }}</span
+                                      >
                                       <hr class="hr-dotted" />
                                     </div>
 
-                                    <div class="col-lg-6 mt-10">
-                                      <span class="fw-bold"
+                                    <div class="col-lg-12 mt-10">
+                                      <span class="fw-bold text-dark"
                                         >สถานะ/Member Status : </span
-                                      ><span class="fst-italic">
+                                      ><span class="text-color-primary fw-bold">
                                         {{ booking.member_status.name_th }}
                                       </span>
                                       <hr class="hr-dotted" />
                                     </div>
 
                                     <div class="col-lg-12 mt-10">
-                                      <span class="fw-bold"
+                                      <span class="fw-bold text-dark"
                                         >ชื่อหน่วยงาน/Organization : </span
-                                      ><span class="fst-italic">{{
-                                        booking.organization
-                                      }}</span>
+                                      ><span
+                                        class="text-color-primary fw-bold"
+                                        >{{ booking.organization }}</span
+                                      >
                                       <hr class="hr-dotted" />
                                     </div>
 
                                     <div class="col-lg-12 mt-10">
-                                      <span class="fw-bold"
+                                      <span class="fw-bold text-dark"
                                         >ที่อยู่ที่สามารถติดต่อได้/Contact
                                         Address : </span
-                                      ><span class="fst-italic">{{
-                                        booking.contact_address
-                                      }}</span>
+                                      ><span
+                                        class="text-color-primary fw-bold"
+                                        >{{ booking.contact_address }}</span
+                                      >
                                       <hr class="hr-dotted" />
                                     </div>
 
                                     <div class="col-lg-6 mt-10">
-                                      <span class="fw-bold"
+                                      <span class="fw-bold text-dark"
                                         >โทรศัพท์/Phone :</span
-                                      ><span class="fst-italic">{{
-                                        booking.phone
-                                      }}</span>
+                                      ><span
+                                        class="text-color-primary fw-bold"
+                                        >{{ booking.phone }}</span
+                                      >
                                       <hr class="hr-dotted" />
                                     </div>
 
                                     <div class="col-lg-6 mt-10">
-                                      <span class="fw-bold">E-mail : </span
-                                      ><span class="fst-italic">{{
-                                        booking.email
-                                      }}</span>
+                                      <span class="fw-bold text-dark"
+                                        >E-mail : </span
+                                      ><span
+                                        class="text-color-primary fw-bold"
+                                        >{{ booking.email }}</span
+                                      >
                                       <hr class="hr-dotted" />
                                     </div>
 
                                     <div class="col-lg-12 mt-10">
-                                      <span class="fw-bold"
+                                      <span class="fw-bold text-dark"
                                         >เลขประจำตัวผู้เสียภาษี/Tax ID : </span
-                                      ><span class="fst-italic">{{
-                                        booking.tax_id
-                                      }}</span>
+                                      ><span
+                                        class="text-color-primary fw-bold"
+                                        >{{ booking.tax_id }}</span
+                                      >
                                       <hr class="hr-dotted" />
                                     </div>
 
                                     <div class="col-lg-12 mt-10">
-                                      <span class="fw-bold"
+                                      <span class="fw-bold text-dark"
                                         >ที่อยู่ในการออกใบกำกับภาษี/ Invoice
                                         Address : </span
-                                      ><span class="fst-italic">{{
-                                        booking.invoice_address
-                                      }}</span>
+                                      ><span
+                                        class="text-color-primary fw-bold"
+                                        >{{ booking.invoice_address }}</span
+                                      >
                                       <hr class="hr-dotted" />
                                     </div>
                                   </div>
@@ -686,7 +706,7 @@
                                     <div class="col">
                                       <div class="tp-button-demo text-center">
                                         <button
-                                          class="tp-btn-border-brown text-uppercase"
+                                          class="tp-btn-border-yellow text-uppercase"
                                           @click="onConfirmSubmit()"
                                         >
                                           {{ $t("Submit Order") }}
@@ -735,6 +755,7 @@ import Swal from "sweetalert2";
 
 const runtimeConfig = useRuntimeConfig();
 const route = useRoute();
+const router = useRouter();
 
 const item = ref(null);
 const booking = ref({
@@ -803,19 +824,28 @@ const { data: resEquipmentMethod } = await useAsyncData(
 equipmentMethod.value = resEquipmentMethod.value.data;
 
 const { data: res } = await useAsyncData("equipment", async () => {
-  let data = await $fetch(
-    `${runtimeConfig.public.apiBase}/equipment/${route.params.id}`,
-    {
-      params: {
-        lang: useCookie("lang").value,
-      },
-    }
-  );
+  let data = await $fetch(`${runtimeConfig.public.apiBase}/equipment/1`, {
+    params: {
+      lang: useCookie("lang").value,
+    },
+  });
 
   return data;
 });
 
 item.value = res.value.data;
+
+const { data: res1 } = await useAsyncData("booking", async () => {
+  let data = await $fetch(`${runtimeConfig.public.apiBase}/booking/${route.params.id}`, {
+    params: {
+      lang: useCookie("lang").value,
+    },
+  });
+  
+  return data;
+});
+
+booking.value = res1.value.data;
 
 // Method
 const onSelectMethod = (it, event) => {
@@ -945,7 +975,7 @@ const onConfirmSubmit = async () => {
     confirmButtonText: "Yes, confirm it!",
   }).then((result) => {
     if (result.isConfirmed) {
-        onSubmit();
+      onSubmit();
     }
   });
 };
@@ -972,9 +1002,9 @@ const onSubmit = async () => {
       if (res.msg == "success") {
         localStorage.setItem("added", 1);
         console.log("Book Success");
-        // router.push({
-        //   path: "/news/" + res.id,
-        // });
+        router.push({
+          path: "/booking",
+        });
       } else {
         console.log("error");
       }

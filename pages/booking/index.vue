@@ -54,6 +54,7 @@
                   <td class="text-center">{{ it.organization }}</td>
                   <th class="text-center">
                     <span
+                      v-if="it.booking_status_show"
                       :class="
                         'badge rounded-pill bg-' + it.booking_status_show.color
                       "
@@ -62,13 +63,24 @@
                     >
                   </th>
                   <td class="text-center">
-                    <button class="btn btn-warning" @click="onEdit()">
+                    <!-- <NuxtLink
+                      class="btn btn-warning"
+                      :to="'/booking/'+it.id"
+                    >
+                      <i class="fa-regular fa-edit"></i
+                    ></NuxtLink> -->
+
+                    <button
+                      class="btn btn-warning"
+                      :disabled="it.status_id > 1 ? true : false"
+                    >
                       <i class="fa-regular fa-edit"></i>
                     </button>
 
                     <button
                       class="btn btn-danger ml-5"
-                      @click="onDelete()"
+                      :disabled="it.status_id > 1 ? true : false"
+                      @click="onConfirmDelete(it.id)"
                     >
                       ยกเลิก
                     </button>
@@ -76,6 +88,10 @@
                 </tr>
               </tbody>
             </table>
+
+            <div class="text-secondary">
+              หมายเหตุ: รายการจองที่ได้รับการอนุมัติแล้วไม่สามารถยกเลิกเองได้
+            </div>
           </div>
         </div>
       </div>
@@ -99,6 +115,7 @@ import "dayjs/locale/th";
 import buddhistEra from "dayjs/plugin/buddhistEra";
 import vSelect from "vue-select";
 import "vue-select/dist/vue-select.css";
+import Swal from "sweetalert2";
 // Import
 // import tableItem from "~/components/list/TableItem.vue";
 import BlogPagination from "~/components/common/pagination/BlogPagination.vue";
@@ -212,34 +229,40 @@ const { data: res } = await useAsyncData("booking", async () => {
   return data;
 });
 
-items.value = res.value.data.map((x) => {
-  x.booking_date_show =
-    useCookie("lang").value == "en"
-      ? dayjs(x.booking_date).format("DD/MM/YY")
-      : dayjs(x.booking_date).locale("th").format("DD MMM BB");
-
-  let period_time = selectOptions.value.period_times.find((p) => {
-    console.log(x.period_time);
-    return p.id == x.period_time;
-  });
-
-  x.period_time_show =
-    useCookie("lang").value == "en" ? period_time.name_en : period_time.name_th;
-
-  let booking_status = selectOptions.value.booking_statuses.find((p) => {
-    return p.id == x.status_id;
-  });
-
-  x.booking_status_show = {
-    name:
+const orderBooking = () => {
+  items.value = res.value.data.map((x) => {
+    x.booking_date_show =
       useCookie("lang").value == "en"
-        ? booking_status.name_en
-        : booking_status.name_th,
-    color: booking_status.color,
-  };
+        ? dayjs(x.booking_date).format("DD/MM/YY")
+        : dayjs(x.booking_date).locale("th").format("DD MMM BB");
 
-  return x;
-});
+    let period_time = selectOptions.value.period_times.find((p) => {
+      console.log(x.period_time);
+      return p.id == x.period_time;
+    });
+
+    x.period_time_show =
+      useCookie("lang").value == "en"
+        ? period_time.name_en
+        : period_time.name_th;
+
+    let booking_status = selectOptions.value.booking_statuses.find((p) => {
+      return p.id == x.status_id;
+    });
+
+    x.booking_status_show = {
+      name:
+        useCookie("lang").value == "en"
+          ? booking_status.name_en
+          : booking_status.name_th,
+      color: booking_status.color,
+    };
+
+    return x;
+  });
+};
+
+orderBooking();
 
 onMounted(() => {});
 
@@ -249,11 +272,8 @@ totalItems.value = res.value.totalData;
 watch(
   [currentPage, search],
   () => {
-    // router.replace({
-    //   name: "equipment-and-rate",
-    //   query: { page: currentPage.value },
-    // });
     refreshNuxtData("booking");
+    orderBooking();
   },
   { deep: true }
 );
@@ -265,8 +285,43 @@ watchEffect(() => {
 });
 
 watch([res], () => {
-  items.value = res.value.data;
+  orderBooking();
 });
+
+const onConfirmDelete = async (id) => {
+  Swal.fire({
+    title: "Are you sure?",
+    text: "You won't be able to revert this!",
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonColor: "#3085d6",
+    cancelButtonColor: "#d33",
+    confirmButtonText: "Yes, Cancle it!",
+  }).then((result) => {
+    if (result.isConfirmed) {
+      onDelete(id);
+    }
+  });
+};
+
+const onDelete = async (id) => {
+  await $fetch(`${runtimeConfig.public.apiBase}/booking/${id}`, {
+    method: "put",
+    body: {
+      status_id: 4,
+    },
+  })
+    .then((res) => {
+      if (res.msg == "success") {
+        localStorage.setItem("cancel", 1);
+        console.log("Cancle Success");
+        refreshNuxtData("booking");
+      } else {
+        console.log("error");
+      }
+    })
+    .catch((error) => error.data);
+};
 
 // watch([resEquipmentDepartment], () => {
 //   selectOptions.value.equipment_departments = resEquipmentDepartment.value.data;
