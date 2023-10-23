@@ -47,7 +47,7 @@
           <div class="postbox__wrapper" v-if="item">
             <!-- Image -->
             <!-- <div class="postbox__top">
-            </div> -->
+              </div> -->
             <!-- Content -->
             <div class="postbox__main">
               <div class="row">
@@ -360,7 +360,7 @@
                                       for="staticEmail"
                                       class="col-sm-3 col-form-label"
                                       ><span class="text-danger">*</span
-                                      >โทรศัพท์/Phone : 
+                                      >โทรศัพท์/Phone :
                                     </label>
                                     <div class="col-sm-9">
                                       <input
@@ -697,7 +697,6 @@ const item = ref(null);
 const booking = ref({
   booking_date: dayjs(),
   example: "",
-  // Equipment_booking_method
   equipment_booking_method: [],
   prefix: "",
   firstname: "",
@@ -737,12 +736,24 @@ const format = (date) => {
   }
 };
 
-// Fetch
-
 // Function Fetch
+const { data: res1 } = await useAsyncData("booking", async () => {
+  let data = await $fetch(
+    `${runtimeConfig.public.apiBase}/booking/${route.params.id}`,
+    {
+      params: {
+        lang: useCookie("lang").value,
+      },
+    }
+  );
+  return data;
+});
+
+booking.value = res1.value.data;
+
 const { data: res } = await useAsyncData("equipment", async () => {
   let data = await $fetch(
-    `${runtimeConfig.public.apiBase}/equipment/${route.params.id}`,
+    `${runtimeConfig.public.apiBase}/equipment/${res1.value.data.equipment_id}`,
     {
       params: {
         lang: useCookie("lang").value,
@@ -763,7 +774,7 @@ const { data: resEquipmentMethod } = await useAsyncData(
       {
         params: {
           is_publish: 1,
-          equipment_id: route.params.id,
+          equipment_id: res1.value.data.equipment_id,
           lang: useCookie("lang").value,
         },
       }
@@ -807,6 +818,62 @@ const onSelectMethod = (it, event) => {
   }
 };
 
+const onLoadEquipmentBookingMethod = () => {
+  if (booking.value.equipment_booking_method.length != 0) {
+    booking.value.equipment_method = booking.value.equipment_booking_method.map(
+      (x) => {
+        let equipment_method = equipmentMethod.value.find((em) => {
+          return x.equipment_method_id == em.id;
+        });
+
+        x.name = equipment_method.name;
+        x.name_short = equipment_method.name_short;
+        // x.price = equipment_method.price;
+        x.price_normal = equipment_method.price;
+        x.unit = equipment_method.unit;
+
+        let no_input = document.getElementById(
+          "equipment-method-no-" + equipment_method.id
+        );
+        no_input.checked = true;
+
+        let quantity_input = document.getElementById(
+          "equipment-method-quantity-" + equipment_method.id
+        );
+
+        quantity_input.removeAttribute("disabled");
+        quantity_input.value = x.quantity;
+
+        return x;
+      }
+    );
+
+    booking.value.total_price = booking.value.price;
+  }
+};
+
+// onLoadEquipmentBookingMethod();
+
+onMounted(() => {
+  booking.value.equipment_method = [];
+  if (booking.value.period_time) {
+    let period_time = booking.value.period_time;
+    booking.value.period_time =
+      selectOptions.value.period_times[period_time - 1];
+  }
+  if (booking.value.booking_date) {
+    booking.value.booking_date = dayjs(booking.value.booking_date);
+  }
+
+  if (booking.value.member_status) {
+    let member_status = booking.value.member_status;
+    booking.value.member_status =
+      selectOptions.value.member_statuses[member_status - 1];
+  }
+
+  onLoadEquipmentBookingMethod();
+});
+
 const onChangeQuantity = (id, event) => {
   booking.value.equipment_booking_method =
     booking.value.equipment_booking_method.map((x) => {
@@ -818,9 +885,10 @@ const onChangeQuantity = (id, event) => {
 };
 
 const calPrice = () => {
-    booking.value.total_price = 0;
+  booking.value.total_price = 0;
   booking.value.equipment_booking_method =
     booking.value.equipment_booking_method.map((x) => {
+
       if (x.is_fixrate == true) {
         x.total_price = x.quantity * x.price_normal;
       } else {
@@ -863,6 +931,7 @@ const onConfirmSubmit = async () => {
 };
 
 const onSubmit = async () => {
+  console.log(booking.value);
   let data = {
     ...booking.value,
     equipment_id: item.value.id,
@@ -876,14 +945,13 @@ const onSubmit = async () => {
     price: booking.value.total_price,
   };
 
-  await $fetch(`${runtimeConfig.public.apiBase}/booking`, {
-    method: "post",
+  await $fetch(`${runtimeConfig.public.apiBase}/booking/${route.params.id}`, {
+    method: "put",
     body: data,
   })
     .then((res) => {
       if (res.msg == "success") {
-        localStorage.setItem("added", 1);
-        console.log("Book Success");
+        localStorage.setItem("updated", 1);
         router.push({
           path: "/booking",
         });
@@ -906,7 +974,6 @@ const prevStep = () => {
 
 const nextStep = async (step) => {
   if (currentStep.value === stepLength.value) {
-    console.log("Done: ", JSON.stringify(values, null, 2));
     alert("Submit Success");
     return;
   }

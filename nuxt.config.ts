@@ -14,7 +14,8 @@ export default defineNuxtConfig({
     apiSecret: "",
     // Keys within public, will be also exposed to the client-side
     public: {
-      apiBase: "http://143.198.208.110:3003/api/v1",
+      //   apiBase: "http://143.198.208.110:3003/api/v1",
+      apiBase: "http://localhost:3003/api/v1",
     },
     // public: {
     //   apiBase: "http://technopark.kmutnb.ac.th/api/v1",
@@ -34,6 +35,22 @@ export default defineNuxtConfig({
         autoImports: ["defineStore", ["defineStore", "definePiniaStore"]],
       },
     ],
+    // '@vee-validate/nuxt',
+    // "@vee-validate/nuxt",
+    // [
+    //   "@vee-validate/nuxt",
+    //   {
+    //     // disable or enable auto imports
+    //     autoImports: true,
+    //     // Use different names for components
+    //     componentNames: {
+    //       Form: "VeeForm",
+    //       Field: "VeeField",
+    //       FieldArray: "VeeFieldArray",
+    //       ErrorMessage: "VeeErrorMessage",
+    //     },
+    //   },
+    // ],
     // "@nuxtjs/i18n",
     // "nuxt-vue-select",
   ],

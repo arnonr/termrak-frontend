@@ -33,7 +33,7 @@
         <div class="col-xxl-12 mb-20">
           <h3>{{ $t("Sample Submission") }}</h3>
         </div>
-        <div
+        <!-- <div
           class="col-xxl-12"
           v-if="selectOptions.equipment_departments.length != 0"
         >
@@ -54,15 +54,16 @@
               </button>
             </div>
           </div>
-        </div>
+        </div> -->
       </div>
-      <div class="row gx-2 grid">
+      <div class="row gx-2 grid" v-if="items.length != 0">
         <div
           v-for="(it, i) in items"
           :key="i"
           class="col-xxl-3 col-xl-3 col-lg-6 col-md-6"
         >
           <grid-item
+            v-if="it.equipment_department"
             :item="{
               link: 'sample-submission/',
               id: it.id,

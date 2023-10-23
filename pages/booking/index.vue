@@ -5,6 +5,7 @@
         <div class="col-xxl-12">
           <div class="breadcrumb__content p-relative z-index-1">
             <div class="breadcrumb__list">
+              <!-- Span -->
               <span>
                 <NuxtLink
                   :to="{
@@ -63,27 +64,28 @@
                     >
                   </th>
                   <td class="text-center">
-                    <!-- <NuxtLink
-                      class="btn btn-warning"
-                      :to="'/booking/'+it.id"
-                    >
-                      <i class="fa-regular fa-edit"></i
-                    ></NuxtLink> -->
-
-                    <button
-                      class="btn btn-warning"
-                      :disabled="it.status_id > 1 ? true : false"
+                    <NuxtLink
+                      :to="'/booking/' + it.id"
+                      class="btn btn-warning text-uppercase"
                     >
                       <i class="fa-regular fa-edit"></i>
-                    </button>
+                    </NuxtLink>
 
-                    <button
+                    <!-- <NuxtLink
+                      v-if="it.status_id == 1"
+                      :to="'/booking/' + it.id"
+                      class="btn btn-warning text-uppercase ml-5"
+                    >
+                      <i class="fa-regular fa-edit"></i>
+                    </NuxtLink> -->
+
+                    <!-- <button
                       class="btn btn-danger ml-5"
                       :disabled="it.status_id > 1 ? true : false"
                       @click="onConfirmDelete(it.id)"
                     >
                       ยกเลิก
-                    </button>
+                    </button> -->
                   </td>
                 </tr>
               </tbody>
@@ -116,6 +118,8 @@ import buddhistEra from "dayjs/plugin/buddhistEra";
 import vSelect from "vue-select";
 import "vue-select/dist/vue-select.css";
 import Swal from "sweetalert2";
+import Toastify from "toastify-js";
+import "toastify-js/src/toastify.css";
 // Import
 // import tableItem from "~/components/list/TableItem.vue";
 import BlogPagination from "~/components/common/pagination/BlogPagination.vue";
@@ -173,33 +177,6 @@ for (let i = 0; i <= 9; i++) {
 }
 
 // Function Fetch
-// const { data: resEquipmentDepartment } = await useAsyncData(
-//   "equipmentDepartment",
-//   async () => {
-//     let data = await $fetch(
-//       `${runtimeConfig.public.apiBase}/equipment-department`,
-//       {
-//         params: {
-//           is_publish: 1,
-//           lang: useCookie("lang").value,
-//         },
-//       }
-//     );
-
-//     let d = data.data.map((e) => {
-//       return { title: e.name, value: e.id };
-//     });
-
-//     return d;
-//   }
-// );
-
-// selectOptions.value.equipment_departments = resEquipmentDepartment.value;
-
-// if (route.query.page) {
-//   currentPage.value = route.query.page;
-// }
-
 const { data: res } = await useAsyncData("booking", async () => {
   let params = {
     ...search.value,
@@ -223,6 +200,7 @@ const { data: res } = await useAsyncData("booking", async () => {
   let data = await $fetch(`${runtimeConfig.public.apiBase}/booking`, {
     params: params,
   });
+
   items.value = data.data;
   totalPage.value = data.totalPage;
   totalItems.value = data.totalData;
@@ -237,7 +215,6 @@ const orderBooking = () => {
         : dayjs(x.booking_date).locale("th").format("DD MMM BB");
 
     let period_time = selectOptions.value.period_times.find((p) => {
-      console.log(x.period_time);
       return p.id == x.period_time;
     });
 
@@ -264,8 +241,6 @@ const orderBooking = () => {
 
 orderBooking();
 
-onMounted(() => {});
-
 totalPage.value = res.value.totalPage;
 totalItems.value = res.value.totalData;
 
@@ -278,50 +253,62 @@ watch(
   { deep: true }
 );
 
-onMounted(() => {});
+onMounted(() => {
+    // window.scrollTo({ top: 0, behavior: "smooth" });
+});
 
 watchEffect(() => {
   if (currentPage.value > totalPage.value) currentPage.value = totalPage.value;
 });
 
 watch([res], () => {
-  orderBooking();
+  if (Array.isArray(res.value.data)) {
+    orderBooking();
+  }
 });
 
-const onConfirmDelete = async (id) => {
-  Swal.fire({
-    title: "Are you sure?",
-    text: "You won't be able to revert this!",
-    icon: "warning",
-    showCancelButton: true,
-    confirmButtonColor: "#3085d6",
-    cancelButtonColor: "#d33",
-    confirmButtonText: "Yes, Cancle it!",
-  }).then((result) => {
-    if (result.isConfirmed) {
-      onDelete(id);
-    }
-  });
+const showToast = (text, type) => {
+  let style = {
+    background: "linear-gradient(to right, #00b09b, #96c93d)",
+  };
+  if (type == "error") {
+    style = {
+      backgroundColor: "#c62128",
+      backgroundImage: "linear-gradient(147deg, #c62128 0%, #a00000 74%)",
+    };
+  }
+  Toastify({
+    text: text,
+    duration: 3000,
+    //   destination: "https://github.com/apvarun/toastify-js",
+    newWindow: true,
+    close: true,
+    gravity: "bottom", // `top` or `bottom`
+    position: "center", // `left`, `center` or `right`
+    stopOnFocus: true, // Prevents dismissing of toast on hover
+    style: style,
+    onClick: function () {}, // Callback after click
+  }).showToast();
 };
 
-const onDelete = async (id) => {
-  await $fetch(`${runtimeConfig.public.apiBase}/booking/${id}`, {
-    method: "put",
-    body: {
-      status_id: 4,
-    },
-  })
-    .then((res) => {
-      if (res.msg == "success") {
-        localStorage.setItem("cancel", 1);
-        console.log("Cancle Success");
-        refreshNuxtData("booking");
-      } else {
-        console.log("error");
-      }
-    })
-    .catch((error) => error.data);
-};
+if (process.client) {
+  if (localStorage.getItem("added")) {
+    showToast("เพิ่มรายการจองเสร็จสิ้น", "success");
+    localStorage.removeItem("added");
+  }
+
+  if (localStorage.getItem("deleted")) {
+    showToast("ยกเลิกรายการแล้ว", "success");
+    localStorage.removeItem("deleted");
+  }
+
+  if (localStorage.getItem("updated")) {
+    showToast("แก้ไขรายการจองเสร็จสิ้น", "success");
+    localStorage.removeItem("updated");
+  }
+
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}
 
 // watch([resEquipmentDepartment], () => {
 //   selectOptions.value.equipment_departments = resEquipmentDepartment.value.data;
