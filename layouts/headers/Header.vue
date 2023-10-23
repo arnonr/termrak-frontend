@@ -5,7 +5,7 @@
         <div class="container">
           <div class="row align-items-center">
             <!-- Logo SICC -->
-            <div class="col-xxl-8 col-xl-8 col-lg-6 col-md-6 col-6">
+            <div class="col-xxl-8 col-xl-8 col-lg-6 col-md-5 col-5">
               <div class="logo text-start">
                 <NuxtLink to="/">
                   <img
@@ -26,7 +26,7 @@
               </div>
             </div>
 
-            <div class="col-xxl-4 col-xl-4 col-lg-6 col-md-6 col-6">
+            <div class="col-xxl-4 col-xl-4 col-lg-6 col-md-7 col-7">
               <!-- Logo Sci -->
               <div
                 class="header__top-right-4 d-none d-lg-flex justify-content-center"
@@ -46,7 +46,11 @@
                 <div
                   class="header__info-wrapper-4 d-flex align-items-center justify-content-center"
                 >
-                  <span class="mr-0-5" @click="changeSkin()" style="cursor:pointer">
+                  <span
+                    class="mr-0-5"
+                    @click="changeSkin()"
+                    style="cursor: pointer"
+                  >
                     <svg
                       v-if="useSkin().value == 'skin-dark'"
                       xmlns="http://www.w3.org/2000/svg"
@@ -106,7 +110,16 @@
                     </svg>
                   </span>
                   <span class="mr-0-5 fw-bold"> | </span>
-                  <span class="mr-0-5 fw-bold">
+
+                  <button
+                    type="button"
+                    class="btn btn-light mr-0-5 fw-bold"
+                    @click="
+                      () => {
+                        this.$router.push({ path: '/login'});
+                      }
+                    "
+                  >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -132,8 +145,62 @@
                         ></path>
                       </g>
                     </svg>
-                    <span class="d-none d-lg-inline">{{ $t('Sign In') }}</span>
-                  </span>
+                    <span class="d-none d-lg-inline">{{ $t("Sign In") }}</span>
+                  </button>
+
+                  <!-- <div class="dropdown mr-0-5 fw-bold" >
+                    <button
+                      class="btn btn-light dropdown-toggle"
+                      type="button"
+                      id="dropdownMenuButton1"
+                      data-bs-toggle="dropdown"
+                      aria-expanded="false"
+                    >
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        xmlns:xlink="http://www.w3.org/1999/xlink"
+                        aria-hidden="true"
+                        role="img"
+                        tag="i"
+                        class="v-icon notranslate v-theme--light iconify iconify--tabler"
+                        width="1em"
+                        height="1em"
+                        viewBox="0 0 24 24"
+                        style="font-size: 24px; height: 24px; width: 24px"
+                      >
+                        <g
+                          fill="none"
+                          stroke="currentColor"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="2"
+                        >
+                          <circle cx="12" cy="7" r="4"></circle>
+                          <path
+                            d="M6 21v-2a4 4 0 0 1 4-4h4a4 4 0 0 1 4 4v2"
+                          ></path>
+                        </g>
+                      </svg>
+                      <span class="d-none d-lg-inline">{{
+                        $t("Sign In")
+                      }}</span>
+                    </button>
+                    <ul
+                      class="dropdown-menu"
+                      aria-labelledby="dropdownMenuButton1"
+                    >
+                      <li><a class="dropdown-item" href="#">Action</a></li>
+                      <li>
+                        <a class="dropdown-item" href="#">Another action</a>
+                      </li>
+                      <li>
+                        <a class="dropdown-item" href="#"
+                          >Something else here</a
+                        >
+                      </li>
+                    </ul>
+                  </div> -->
+
                   <span class="mr-0-5 fw-bold"> | </span>
                   <span class="mr-0-5"><language /></span>
 
