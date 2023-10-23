@@ -154,7 +154,12 @@ h6 {
 .toastify-center {
     /* top: 60% !important; */
     height: fit-content !important;
-  }
+}
+
+.btn-custom-light {
+    background: none !important;
+    border: none !important;
+}
 
 /* skin-dark */
 div.skin-dark {

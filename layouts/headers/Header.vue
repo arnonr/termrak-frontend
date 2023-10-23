@@ -112,7 +112,7 @@
                     <slot name="loading"> -->
                   <button
                     type="button"
-                    class="btn btn-light mr-0-5 fw-bold"
+                    class="btn btn-light btn-custom-light mr-0-5 fw-bold"
                     v-if="!authenticated"
                     @click="
                       () => {
@@ -149,7 +149,7 @@
                   </button>
                   <div class="dropdown mr-0-5 fw-bold" v-if="authenticated">
                     <button
-                      class="btn btn-light dropdown-toggle"
+                      class="btn btn-light btn-custom-light dropdown-toggle"
                       type="button"
                       id="dropdownMenuButton1"
                       data-bs-toggle="dropdown"
@@ -181,7 +181,7 @@
                         </g>
                       </svg>
                       <span class="d-none d-lg-inline">{{
-                        "อานนท์ รักจักร์"
+                        useCookie("user").value.firstname +" "+ useCookie("user").value.surname
                       }}</span>
                     </button>
                     <ul
@@ -314,6 +314,7 @@ import menus from "./menus.vue";
 import OffCanvasTwo from "~~/components/common/off-canvas/OffCanvasTwo.vue";
 import Language from "./component/Language.vue";
 
+import { useAuthStore } from "~/store/auth"; // import the auth store we just created
 import { storeToRefs } from "pinia"; // import storeToRefs helper hook from pinia
 const { authenticated } = storeToRefs(useAuthStore()); // make authenticated state reactive with storeToRefs
 const { logUserOut } = useAuthStore();

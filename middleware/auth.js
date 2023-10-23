@@ -1,3 +1,5 @@
+
+import { useAuthStore } from "~/store/auth"; // import the auth store we just created
 import { storeToRefs } from "pinia"; // import storeToRefs helper hook from pinia
 
 export default defineNuxtRouteMiddleware((to, from) => {

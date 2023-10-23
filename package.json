@@ -21,6 +21,7 @@
     "@vee-validate/nuxt": "^4.11.8",
     "@vuepic/vue-datepicker": "^7.1.0",
     "@yeger/vue-masonry-wall": "^3.4.3",
+    "bcrypt": "^5.1.1",
     "bootstrap": "^5.2.3",
     "dayjs": "^1.11.10",
     "install": "^0.13.0",

@@ -197,6 +197,10 @@ const { data: res } = await useAsyncData("booking", async () => {
     lang: useCookie("lang").value,
   };
 
+  if (useCookie("user").value.group_id != 1) {
+    params["user_id"] = useCookie("user").value.id;
+  }
+
   let data = await $fetch(`${runtimeConfig.public.apiBase}/booking`, {
     params: params,
   });
@@ -254,7 +258,7 @@ watch(
 );
 
 onMounted(() => {
-    // window.scrollTo({ top: 0, behavior: "smooth" });
+  // window.scrollTo({ top: 0, behavior: "smooth" });
 });
 
 watchEffect(() => {
@@ -266,8 +270,6 @@ watch([res], () => {
     orderBooking();
   }
 });
-
-
 
 if (process.client) {
   if (localStorage.getItem("added")) {

@@ -244,10 +244,6 @@ const { data: res } = await useAsyncData("news", async () => {
 
 item.value = res.value.data;
 
-const handleImagePopup = (index) => {
-  image_popup.value.showImg(index);
-};
-
 useHead({
   title: item.value.title,
 });

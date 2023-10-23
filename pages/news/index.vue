@@ -157,14 +157,12 @@ const { data: resNewsType } = await useAsyncData("newsType", async () => {
     },
   });
 
-  let d = data.data.map((e) => {
-    return { title: e.name, value: e.id };
-  });
-
-  return d;
+  return data;
 });
 
-selectOptions.value.news_types = resNewsType.value;
+selectOptions.value.news_types = resNewsType.value.data.map((e) => {
+  return { title: e.name, value: e.id };
+});
 
 if (route.query.page) {
   currentPage.value = route.query.page;
@@ -219,13 +217,13 @@ watchEffect(() => {
   if (currentPage.value > totalPage.value) currentPage.value = totalPage.value;
 });
 
-watch([res], () => {
-  items.value = res.value.data;
-});
+// watch([res], () => {
+//   items.value = res.value.data;
+// });
 
-watch([resNewsType], () => {
-  newsType.value = resNewsType.value.data;
-});
+// watch([resNewsType], () => {
+//   newsType.value = resNewsType.value.data;
+// });
 
 useHead({
   title:
