@@ -905,7 +905,6 @@ const prevStep = () => {
 
 const nextStep = async (step) => {
   if (currentStep.value === stepLength.value) {
-    console.log("Done: ", JSON.stringify(values, null, 2));
     alert("Submit Success");
     return;
   }

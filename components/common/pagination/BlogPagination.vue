@@ -154,7 +154,6 @@ const onChangePage = (type) => {
   }
 
   if (typeof type === "number") {
-    console.log(type);
     emit("update:currentPage", type);
   }
 };

@@ -930,7 +930,6 @@ const onConfirmSubmit = async () => {
 };
 
 const onSubmit = async () => {
-  console.log(booking.value);
   let data = {
     ...booking.value,
     equipment_id: item.value.id,

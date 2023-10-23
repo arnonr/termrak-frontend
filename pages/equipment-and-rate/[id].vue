@@ -227,7 +227,6 @@ const { data: res } = await useAsyncData("equipment", async () => {
       },
     }
   );
-  console.log(data);
   return data;
 });
 

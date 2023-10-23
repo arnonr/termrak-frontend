@@ -181,7 +181,9 @@
                         </g>
                       </svg>
                       <span class="d-none d-lg-inline">{{
-                        useCookie("user").value.firstname +" "+ useCookie("user").value.surname
+                        useCookie("user").value.firstname +
+                        " " +
+                        useCookie("user").value.surname
                       }}</span>
                     </button>
                     <ul
@@ -191,8 +193,19 @@
                       <li>
                         <a
                           class="dropdown-item item-link"
-                          @click="this.$router.push({ path: 'booking' })"
+                          @click="this.$router.push({ path: '/booking' })"
                           >รายการจอง</a
+                        >
+                      </li>
+                      <li>
+                        <a
+                          class="dropdown-item item-link"
+                          @click="
+                            this.$router.push({
+                              path: '/profile/' + useCookie('user').value.id,
+                            })
+                          "
+                          >ข้อมูลส่วนตัว</a
                         >
                       </li>
                       <li>
