@@ -46,10 +46,11 @@
                 v-for="(it, i) in selectOptions.equipment_departments"
                 :key="i"
                 @click="onChangeEquipmentDepartment(it.id, it.category)"
-                :class="`${
-                  it.category === activeCategory ? 'active' : ''
-                } text-uppercase`"
+                class="text-uppercase"
               >
+              <!-- :class="`${
+                  it.category === activeCategory ? 'active' : ''
+                } text-uppercase`" -->
                 {{ it.name }}
               </button>
             </div>

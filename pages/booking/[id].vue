@@ -472,29 +472,6 @@ onMounted(() => {
   checkSummary.value = true;
 });
 
-const showToast = (text, type) => {
-  let style = {
-    background: "linear-gradient(to right, #00b09b, #96c93d)",
-  };
-  if (type == "error") {
-    style = {
-      backgroundColor: "#c62128",
-      backgroundImage: "linear-gradient(147deg, #c62128 0%, #a00000 74%)",
-    };
-  }
-  Toastify({
-    text: text,
-    duration: 3000,
-    //   destination: "https://github.com/apvarun/toastify-js",
-    newWindow: true,
-    close: true,
-    gravity: "bottom", // `top` or `bottom`
-    position: "center", // `left`, `center` or `right`
-    stopOnFocus: true, // Prevents dismissing of toast on hover
-    style: style,
-    onClick: function () {}, // Callback after click
-  }).showToast();
-};
 
 const onConfirmDelete = async (id) => {
   Swal.fire({
@@ -535,6 +512,11 @@ const onDelete = async (id) => {
 useHead({
   title: item.value.title,
 });
+
+definePageMeta({
+  middleware: "auth",
+});
+
 </script>
 
 <style scoped>

@@ -10,6 +10,10 @@
     cursor: pointer;
 }
 
+/* .item-link {
+    cursor: pointer;
+} */
+
 .text-color-secondary {
     color: var(--tp-common-blue);
 }
@@ -148,7 +152,7 @@ h6 {
 }
 
 .toastify-center {
-    top: 80% !important;
+    /* top: 60% !important; */
     height: fit-content !important;
   }
 

@@ -39,6 +39,7 @@
                 />
               </div>
               <!-- DARK MODE LOGIN LANGUAGE -->
+
               <div
                 class="header__top-right-4 d-lg-flex justify-content-center"
                 style="padding-top: 1em"
@@ -46,11 +47,7 @@
                 <div
                   class="header__info-wrapper-4 d-flex align-items-center justify-content-center"
                 >
-                  <span
-                    class="mr-0-5"
-                    @click="changeSkin()"
-                    style="cursor: pointer"
-                  >
+                  <span class="mr-0-5 item-link" @click="changeSkin()">
                     <svg
                       v-if="useSkin().value == 'skin-dark'"
                       xmlns="http://www.w3.org/2000/svg"
@@ -111,12 +108,15 @@
                   </span>
                   <span class="mr-0-5 fw-bold"> | </span>
 
+                  <!-- <ClientOnly>
+                    <slot name="loading"> -->
                   <button
                     type="button"
                     class="btn btn-light mr-0-5 fw-bold"
+                    v-if="!authenticated"
                     @click="
                       () => {
-                        this.$router.push({ path: '/login'});
+                        this.$router.push({ path: '/login' });
                       }
                     "
                   >
@@ -147,8 +147,7 @@
                     </svg>
                     <span class="d-none d-lg-inline">{{ $t("Sign In") }}</span>
                   </button>
-
-                  <!-- <div class="dropdown mr-0-5 fw-bold" >
+                  <div class="dropdown mr-0-5 fw-bold" v-if="authenticated">
                     <button
                       class="btn btn-light dropdown-toggle"
                       type="button"
@@ -182,24 +181,29 @@
                         </g>
                       </svg>
                       <span class="d-none d-lg-inline">{{
-                        $t("Sign In")
+                        "อานนท์ รักจักร์"
                       }}</span>
                     </button>
                     <ul
                       class="dropdown-menu"
                       aria-labelledby="dropdownMenuButton1"
                     >
-                      <li><a class="dropdown-item" href="#">Action</a></li>
                       <li>
-                        <a class="dropdown-item" href="#">Another action</a>
+                        <a
+                          class="dropdown-item item-link"
+                          @click="this.$router.push({ path: 'booking' })"
+                          >รายการจอง</a
+                        >
                       </li>
                       <li>
-                        <a class="dropdown-item" href="#"
-                          >Something else here</a
+                        <a class="dropdown-item item-link" @click="logout"
+                          >ออกจากระบบ</a
                         >
                       </li>
                     </ul>
-                  </div> -->
+                  </div>
+                  <!-- </slot>
+                  </ClientOnly> -->
 
                   <span class="mr-0-5 fw-bold"> | </span>
                   <span class="mr-0-5"><language /></span>
@@ -310,11 +314,17 @@ import menus from "./menus.vue";
 import OffCanvasTwo from "~~/components/common/off-canvas/OffCanvasTwo.vue";
 import Language from "./component/Language.vue";
 
+import { storeToRefs } from "pinia"; // import storeToRefs helper hook from pinia
+const { authenticated } = storeToRefs(useAuthStore()); // make authenticated state reactive with storeToRefs
+const { logUserOut } = useAuthStore();
+// const router = useRouter();
+
 export default {
   components: { menus, OffCanvasTwo, Language },
   data() {
     return {
       isSticky: false,
+      authenticated: useCookie("token"), //authenticated.value,
     };
   },
   methods: {
@@ -334,6 +344,12 @@ export default {
       } else {
         useSkin().value = "skin-dark";
       }
+    },
+    logout() {
+      logUserOut();
+      useToast("ออกจากระบบเสร็จสิ้น", "success");
+      this.$router.push("/");
+      this.authenticated = authenticated.value;
     },
   },
   mounted() {

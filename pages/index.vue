@@ -15,4 +15,20 @@ useHead({
     },
   ],
 });
+
+if (process.client) {
+  if (localStorage.getItem("login")) {
+    useToast("เข้าสู่ระบบเสร็จสิ้น", "success");
+    localStorage.removeItem("login");
+  }
+
+//   if (localStorage.getItem("logout")) {
+//     useToast("ออกจากระบบเสร็จสิ้น", "success");
+//     localStorage.removeItem("logout");
+//   }
+}
+
+definePageMeta({
+  middleware: "auth",
+});
 </script>

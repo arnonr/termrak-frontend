@@ -100,6 +100,11 @@ useHead({
       "Scientific Instrument and High Performance Computing Center : SICC, Faculty of Applied Science"
     ),
 });
+
+definePageMeta({
+  middleware: "auth",
+});
+
 </script>
 
 <style scoped>

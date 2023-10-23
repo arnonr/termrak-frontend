@@ -231,6 +231,10 @@ useHead({
   title:
     "ข่าวและประกาศ ศูนย์เครื่องมือวิทยาศาสตร์และคอมพิวเตอร์สมรรถนะสูง คณะวิทยาศาสตร์ประยุกต์",
 });
+
+definePageMeta({
+  middleware: "auth",
+});
 </script>
 
 <style scoped></style>

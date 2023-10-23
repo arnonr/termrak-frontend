@@ -18,7 +18,7 @@
                       <div class="login__input">
                         <label for="email">Email</label>
                         <input
-                          v-model="formValue.email"
+                          v-model="login.email"
                           type="text"
                           placeholder="Email or Username"
                         />
@@ -28,7 +28,7 @@
                       <div class="login__input">
                         <label for="email">Password</label>
                         <input
-                          v-model="formValue.password"
+                          v-model="login.password"
                           type="password"
                           placeholder="Password"
                         />
@@ -40,7 +40,7 @@
                   >
                     <div class="login__remember">
                       <input
-                        v-model="formValue.isChecked"
+                        v-model="login.isChecked"
                         type="checkbox"
                         id="tp-remember"
                       />
@@ -64,6 +64,9 @@
                   <p>
                     Don’t have an account?
                     <nuxt-link href="/register">Register Now</nuxt-link>
+                    <button class="btn btn-danger" @click="logout">
+                      LOgout
+                    </button>
                   </p>
                 </div>
               </div>
@@ -104,15 +107,30 @@ export default {
 // import LoginForm from "../forms/LoginForm.vue";
 import LoginShapes from "./LoginShapes.vue";
 // import LoginWithSocial from "./LoginWithSocial.vue";
+import { storeToRefs } from "pinia"; // import storeToRefs helper hook from pinia
+import { useAuthStore } from "~/store/auth"; // import the auth store we just created
+const { authenticateUser, logUserOut } = useAuthStore(); // use authenticateUser action from  auth store
+const { authenticated } = storeToRefs(useAuthStore()); // make authenticated state reactive with storeToRefs
+const router = useRouter();
 
-const formValue = ref({
+const login = ref({
   email: "",
   password: "",
   isChecked: false,
 });
 
-const handleSubmit = () => {
-  console.log(formValue.value);
-  formValue.value = {};
+const logout = async () => {
+  logUserOut();
+};
+const handleSubmit = async () => {
+  login.value.username = login.value.email;
+  await authenticateUser(login.value); // call authenticateUser and pass the user object
+  // redirect to homepage if user is authenticated
+  if (authenticated.value == true) {
+    localStorage.setItem("login", true);
+    router.push("/");
+  } else {
+    useToast("Email Or Password Wrong", "error");
+  }
 };
 </script>

@@ -267,43 +267,21 @@ watch([res], () => {
   }
 });
 
-const showToast = (text, type) => {
-  let style = {
-    background: "linear-gradient(to right, #00b09b, #96c93d)",
-  };
-  if (type == "error") {
-    style = {
-      backgroundColor: "#c62128",
-      backgroundImage: "linear-gradient(147deg, #c62128 0%, #a00000 74%)",
-    };
-  }
-  Toastify({
-    text: text,
-    duration: 3000,
-    //   destination: "https://github.com/apvarun/toastify-js",
-    newWindow: true,
-    close: true,
-    gravity: "bottom", // `top` or `bottom`
-    position: "center", // `left`, `center` or `right`
-    stopOnFocus: true, // Prevents dismissing of toast on hover
-    style: style,
-    onClick: function () {}, // Callback after click
-  }).showToast();
-};
+
 
 if (process.client) {
   if (localStorage.getItem("added")) {
-    showToast("เพิ่มรายการจองเสร็จสิ้น", "success");
+    useToast("เพิ่มรายการจองเสร็จสิ้น", "success");
     localStorage.removeItem("added");
   }
 
   if (localStorage.getItem("deleted")) {
-    showToast("ยกเลิกรายการแล้ว", "success");
+    useToast("ยกเลิกรายการแล้ว", "success");
     localStorage.removeItem("deleted");
   }
 
   if (localStorage.getItem("updated")) {
-    showToast("แก้ไขรายการจองเสร็จสิ้น", "success");
+    useToast("แก้ไขรายการจองเสร็จสิ้น", "success");
     localStorage.removeItem("updated");
   }
 
@@ -317,6 +295,10 @@ if (process.client) {
 useHead({
   title:
     "รายการจอง เครื่องมือวิทยาศาสตร์และคอมพิวเตอร์สมรรถนะสูง คณะวิทยาศาสตร์ประยุกต์",
+});
+
+definePageMeta({
+  middleware: "auth",
 });
 </script>
 

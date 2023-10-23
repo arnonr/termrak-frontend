@@ -677,7 +677,6 @@ import "@vuepic/vue-datepicker/dist/main.css";
 import Swal from "sweetalert2";
 import Toastify from "toastify-js";
 import "toastify-js/src/toastify.css";
-
 import { FormWizard, TabContent } from "vue3-form-wizard";
 import "vue3-form-wizard/dist/style.css";
 // import { object, string, number, date } from "yup";
@@ -916,7 +915,7 @@ const nextStep = async (step) => {
       booking.value.booking_date == "" ||
       booking.value.booking_date == null
     ) {
-      showToast("โปรดระบุข้อมูลวันที่จอง", "error");
+      useToast("โปรดระบุข้อมูลวันที่จอง", "error");
       checkSummary.value = false;
       return;
     }
@@ -925,13 +924,13 @@ const nextStep = async (step) => {
       booking.value.period_time == null ||
       booking.value.period_time.id == null
     ) {
-      showToast("โปรดระบุข้อมูลช่วงเวลา", "error");
+      useToast("โปรดระบุข้อมูลช่วงเวลา", "error");
       checkSummary.value = false;
       return;
     }
 
     if (booking.value.equipment_booking_method.length == 0) {
-      showToast("โปรดเลือกรายการวิเคราะห์", "error");
+      useToast("โปรดเลือกรายการวิเคราะห์", "error");
       checkSummary.value = false;
       return;
     }
@@ -941,7 +940,7 @@ const nextStep = async (step) => {
     });
 
     if (checkQuantity) {
-      showToast("โปรดเลือกจำนวนรายการวิเคราะห์", "error");
+      useToast("โปรดเลือกจำนวนรายการวิเคราะห์", "error");
       checkSummary.value = false;
       return;
     }
@@ -970,7 +969,7 @@ const nextStep = async (step) => {
       // booking.value.tax_id == "" ||
       // booking.value.tax_id == null
     ) {
-      showToast("โปรดระบุข้อมูลให้ครบถ้วน", "error");
+      useToast("โปรดระบุข้อมูลให้ครบถ้วน", "error");
       checkSummary.value = false;
       return;
     }
@@ -983,32 +982,12 @@ const nextStep = async (step) => {
   formStep.value?.nextTab();
 };
 
-const showToast = (text, type) => {
-  let style = {
-    background: "linear-gradient(to right, #00b09b, #96c93d)",
-  };
-  if (type == "error") {
-    style = {
-      backgroundColor: "#c62128",
-      backgroundImage: "linear-gradient(147deg, #c62128 0%, #a00000 74%)",
-    };
-  }
-  Toastify({
-    text: text,
-    duration: 3000,
-    //   destination: "https://github.com/apvarun/toastify-js",
-    newWindow: true,
-    close: true,
-    gravity: "bottom", // `top` or `bottom`
-    position: "center", // `left`, `center` or `right`
-    stopOnFocus: true, // Prevents dismissing of toast on hover
-    style: style,
-    onClick: function () {}, // Callback after click
-  }).showToast();
-};
-
 useHead({
   title: item.value.title,
+});
+
+definePageMeta({
+  middleware: "auth",
 });
 </script>
 

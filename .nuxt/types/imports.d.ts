@@ -78,6 +78,7 @@ declare global {
   const useAppConfig: typeof import('../../node_modules/nuxt/dist/app')['useAppConfig']
   const useAsyncData: typeof import('../../node_modules/nuxt/dist/app')['useAsyncData']
   const useAttrs: typeof import('vue')['useAttrs']
+  const useAuthStore: typeof import('../../store/auth')['useAuthStore']
   const useCookie: typeof import('../../node_modules/nuxt/dist/app')['useCookie']
   const useCssModule: typeof import('vue')['useCssModule']
   const useCssVars: typeof import('vue')['useCssVars']
@@ -98,6 +99,7 @@ declare global {
   const useSkin: typeof import('../../composables/useState')['useSkin']
   const useSlots: typeof import('vue')['useSlots']
   const useState: typeof import('../../node_modules/nuxt/dist/app')['useState']
+  const useToast: typeof import('../../composables/useToast')['default']
   const useTransitionState: typeof import('vue')['useTransitionState']
   const useUtilsStore: typeof import('../../store/utils')['useUtilsStore']
   const watch: typeof import('vue')['watch']
@@ -190,6 +192,7 @@ declare module 'vue' {
     readonly useAppConfig: UnwrapRef<typeof import('../../node_modules/nuxt/dist/app')['useAppConfig']>
     readonly useAsyncData: UnwrapRef<typeof import('../../node_modules/nuxt/dist/app')['useAsyncData']>
     readonly useAttrs: UnwrapRef<typeof import('vue')['useAttrs']>
+    readonly useAuthStore: UnwrapRef<typeof import('../../store/auth')['useAuthStore']>
     readonly useCookie: UnwrapRef<typeof import('../../node_modules/nuxt/dist/app')['useCookie']>
     readonly useCssModule: UnwrapRef<typeof import('vue')['useCssModule']>
     readonly useCssVars: UnwrapRef<typeof import('vue')['useCssVars']>
@@ -210,6 +213,7 @@ declare module 'vue' {
     readonly useSkin: UnwrapRef<typeof import('../../composables/useState')['useSkin']>
     readonly useSlots: UnwrapRef<typeof import('vue')['useSlots']>
     readonly useState: UnwrapRef<typeof import('../../node_modules/nuxt/dist/app')['useState']>
+    readonly useToast: UnwrapRef<typeof import('../../composables/useToast')['default']>
     readonly useTransitionState: UnwrapRef<typeof import('vue')['useTransitionState']>
     readonly useUtilsStore: UnwrapRef<typeof import('../../store/utils')['useUtilsStore']>
     readonly watch: UnwrapRef<typeof import('vue')['watch']>

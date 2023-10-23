@@ -209,7 +209,6 @@ const modules = [Autoplay, FreeMode, Navigation, Pagination, Scrollbar, Thumbs];
 const image_popup = ref(null);
 
 const newsGallery = ref([]);
-const isActive = ref(false);
 const thumbsSwiper = ref(null);
 
 const item = ref(null);
@@ -251,6 +250,10 @@ const handleImagePopup = (index) => {
 
 useHead({
   title: item.value.title,
+});
+
+definePageMeta({
+  middleware: "auth",
 });
 </script>
 

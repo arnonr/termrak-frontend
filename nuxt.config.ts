@@ -79,7 +79,6 @@ export default defineNuxtConfig({
   //     //     fallbackLocale: 'th-TH'
   //     // },
   //   },
-
   build: {
     transpile: ["vue-i18n"],
   },
