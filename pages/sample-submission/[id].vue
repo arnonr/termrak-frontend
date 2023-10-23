@@ -360,7 +360,7 @@
                                       for="staticEmail"
                                       class="col-sm-3 col-form-label"
                                       ><span class="text-danger">*</span
-                                      >โทรศัพท์/Phone : 
+                                      >โทรศัพท์/Phone :
                                     </label>
                                     <div class="col-sm-9">
                                       <input
@@ -787,7 +787,7 @@ const onSelectMethod = (it, event) => {
       name: it.name,
       name_short: it.name_short,
       is_fixrate: it.is_fixrate,
-    //   price: 0,
+      //   price: 0,
       price_normal: it.price,
       unit: it.unit,
       quantity: 0,
@@ -818,7 +818,7 @@ const onChangeQuantity = (id, event) => {
 };
 
 const calPrice = () => {
-    booking.value.total_price = 0;
+  booking.value.total_price = 0;
   booking.value.equipment_booking_method =
     booking.value.equipment_booking_method.map((x) => {
       if (x.is_fixrate == true) {

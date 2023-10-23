@@ -147,6 +147,11 @@ h6 {
     background-color: #eee;
 }
 
+.toastify-center {
+    top: 80% !important;
+    height: fit-content !important;
+  }
+
 /* skin-dark */
 div.skin-dark {
     .header__padding-4 {
