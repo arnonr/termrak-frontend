@@ -16,7 +16,7 @@
                   <div class="login__input-wrapper">
                     <div class="login__input-item">
                       <div class="login__input">
-                        <label for="email">Email</label>   
+                        <label for="email">Email</label>
                         <input
                           v-model="formValue.email"
                           type="text"
@@ -26,7 +26,7 @@
                     </div>
                     <div class="login__input-item">
                       <div class="login__input">
-                        <label for="email">Password</label>   
+                        <label for="email">Password</label>
                         <input
                           v-model="formValue.password"
                           type="password"
@@ -75,7 +75,7 @@
   </section>
 </template>
 
-<script>
+<!-- <script>
 import LoginForm from "../forms/LoginForm.vue";
 import LoginShapes from "./LoginShapes.vue";
 import LoginWithSocial from "./LoginWithSocial.vue";
@@ -97,5 +97,22 @@ export default {
       this.formValue = {};
     },
   },
+};
+</script> -->
+
+<script setup>
+// import LoginForm from "../forms/LoginForm.vue";
+import LoginShapes from "./LoginShapes.vue";
+// import LoginWithSocial from "./LoginWithSocial.vue";
+
+const formValue = ref({
+  email: "",
+  password: "",
+  isChecked: false,
+});
+
+const handleSubmit = () => {
+  console.log(formValue.value);
+  formValue.value = {};
 };
 </script>

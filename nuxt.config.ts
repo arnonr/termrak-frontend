@@ -35,6 +35,7 @@ export default defineNuxtConfig({
         autoImports: ["defineStore", ["defineStore", "definePiniaStore"]],
       },
     ],
+    // "@nuxtjs/auth-next",
     // '@vee-validate/nuxt',
     // "@vee-validate/nuxt",
     // [
@@ -54,6 +55,7 @@ export default defineNuxtConfig({
     // "@nuxtjs/i18n",
     // "nuxt-vue-select",
   ],
+
   //   i18n: {
   //     lazy: true,
   //     langDir: "locales",
