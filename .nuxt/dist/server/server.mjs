@@ -1,1 +1,0 @@
-export { default } from "file:///Applications/MAMP/htdocs/sicc/sicc-frontend/node_modules/@nuxt/vite-builder/dist/runtime/vite-node.mjs"
