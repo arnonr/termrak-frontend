@@ -27,8 +27,11 @@
                   </div>
                   <div class="login__btn">
                     <button type="submit" class="tp-btn w-100">
-                      Send Reset Password
+                      Resend Email
                     </button>
+                    <!-- <button type="submit" class="tp-btn w-100">
+                      Login
+                    </button> -->
                   </div>
                 </form>
               </div>
@@ -40,14 +43,38 @@
   </section>
 </template>
 
+<!-- <script>
+  import LoginForm from "../forms/LoginForm.vue";
+  import LoginShapes from "./LoginShapes.vue";
+  import LoginWithSocial from "./LoginWithSocial.vue";
+  
+  export default {
+    components: { LoginForm, LoginWithSocial, LoginShapes },
+    data() {
+      return {
+        formValue: {
+          email: "",
+          password: "",
+          isChecked: false,
+        },
+      };
+    },
+    methods: {
+      handleSubmit() {
+        console.log(this.formValue);
+        this.formValue = {};
+      },
+    },
+  };
+  </script> -->
+
 <script setup>
 const runtimeConfig = useRuntimeConfig();
-import LoginShapes from "~~/components/login-register/LoginShapes.vue";
 const router = useRouter();
+import LoginShapes from "~~/components/login-register/LoginShapes.vue";
 const item = ref({
   email: "",
 });
-
 const textError = ref("");
 
 const validateEmail = (email) => {
@@ -68,7 +95,7 @@ const handleSubmit = async () => {
     return;
   }
 
-  await $fetch(`${runtimeConfig.public.apiBase}/user/resend-reset-password`, {
+  await $fetch(`${runtimeConfig.public.apiBase}/user/resend-confirm-email`, {
     method: "post",
     body: item.value,
   })
@@ -76,10 +103,9 @@ const handleSubmit = async () => {
       if (res.msg == "success") {
         textError.value = "Success";
         useToast(
-          "ระบบได้ทำการส่งข้อมูลการรีเซ็ตรหัสผ่านไปยังอีเมล โปรดตรวจสอบอีเมลของท่าน",
+          "ระบบได้ทำการส่งข้อมูลยืนยันไปยังอีเมล โปรดตรวจสอบอีเมลของท่าน",
           "success"
         );
-
         router.push({
           path: "/login",
         });

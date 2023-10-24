@@ -64,9 +64,11 @@
                   <p>
                     Don’t have an account?
                     <nuxt-link href="/register">Register Now</nuxt-link>
-                    <button class="btn btn-danger" @click="logout">
-                      LOgout
-                    </button>
+                  </p>
+
+                  <p>
+                    Resend Confirm
+                    <nuxt-link href="/resend-confirm-email">Email</nuxt-link>
                   </p>
                 </div>
               </div>
@@ -120,9 +122,6 @@ const login = ref({
   isChecked: false,
 });
 
-const logout = async () => {
-  logUserOut();
-};
 const handleSubmit = async () => {
   login.value.username = login.value.email;
   await authenticateUser(login.value); // call authenticateUser and pass the user object
@@ -131,7 +130,7 @@ const handleSubmit = async () => {
     localStorage.setItem("login", true);
     router.push("/");
   } else {
-    useToast("Email Or Password Wrong", "error");
+    useToast("Data is Wrong", "error");
   }
 };
 </script>

@@ -282,7 +282,7 @@ const selectOptions = ref({
 const { data: res } = await useAsyncData("profile", async () => {
   let data = await $fetch(`${runtimeConfig.public.apiBase}/profile`, {
     params: {
-      user_id: 1,
+      user_id: route.params.id,
       lang: useCookie("lang").value,
     },
   });

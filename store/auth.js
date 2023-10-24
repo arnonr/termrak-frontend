@@ -40,8 +40,10 @@ export const useAuthStore = defineStore("auth", {
     },
     logUserOut() {
       const token = useCookie("token"); // useCookie new hook in nuxt 3
+      const user = useCookie("user"); // useCookie new hook in nuxt 3
       this.authenticated = false; // set authenticated  state value to false
       token.value = null; // clear the token cookie
+      user.value = null; // clear the token cookie
       console.log("Logout Success");
     },
   },

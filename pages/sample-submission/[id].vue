@@ -714,6 +714,7 @@ const booking = ref({
   is_publish: 1,
 });
 const equipmentMethod = ref([]);
+const profile = ref({});
 const checkSummary = ref(false);
 const text_summary_error = ref("โปรดระบุข้อมูลให้ครบถ้วน");
 
@@ -739,6 +740,18 @@ const format = (date) => {
 // Fetch
 
 // Function Fetch
+const { data: resProfile } = await useAsyncData("profile", async () => {
+  let data = await $fetch(`${runtimeConfig.public.apiBase}/profile`, {
+    params: {
+      user_id: useCookie("user").value.id,
+    },
+  });
+
+  return data;
+});
+
+profile.value = resProfile.value.data[0];
+
 const { data: res } = await useAsyncData("equipment", async () => {
   let data = await $fetch(
     `${runtimeConfig.public.apiBase}/equipment/${route.params.id}`,
@@ -844,6 +857,27 @@ const calPrice = () => {
       return x;
     });
 };
+
+onMounted(() => {
+  if (profile.value.member_status) {
+    let member_status = profile.value.member_status;
+    profile.value.member_status =
+      selectOptions.value.member_statuses[member_status - 1];
+  }
+
+  profile.value.email = useCookie("user").value.email;
+
+  booking.value.prefix = profile.value.prefix;
+  booking.value.firstname = profile.value.firstname;
+  booking.value.surname = profile.value.surname;
+  booking.value.member_status = profile.value.member_status;
+  booking.value.organization = profile.value.organization;
+  booking.value.contact_address = profile.value.contact_address;
+  booking.value.phone = profile.value.phone;
+  booking.value.email = profile.value.email;
+  booking.value.invoice_address = profile.value.invoice_address;
+  booking.value.tax_id = profile.value.tax_id;
+});
 
 const onConfirmSubmit = async () => {
   Swal.fire({
