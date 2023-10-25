@@ -8,9 +8,10 @@ export const useAuthStore = defineStore("auth", {
   actions: {
     async authenticateUser({ email, password }) {
       // useFetch from nuxt 3
+      const runtimeConfig = useRuntimeConfig();
 
       const { data, pending } = await useFetch(
-        "http://localhost:3003/api/v1/user/login",
+        `${runtimeConfig.public.apiBase}/user/login`,
         {
           method: "post",
           headers: { "Content-Type": "application/json" },
@@ -34,7 +35,7 @@ export const useAuthStore = defineStore("auth", {
           surname: data?.value?.profile.surname,
           group_id: data?.value?.profile.group_id,
         };
-        
+
         this.authenticated = true; // set authenticated  state value to true
       }
     },

@@ -9,15 +9,6 @@ export default defineNuxtPlugin(({ vueApp }) => {
     lang.value = "th";
   }
 
-  //   if (process.client) {
-  //     const { data: res } = useAsyncData("contactUs", async () => {
-  //       let data = await $fetch(`http://localhost:3000/api/lang`, {
-  //         lang: lang.value,
-  //       });
-  //       return data;
-  //     });
-  //   }
-
   const i18n = createI18n({
     legacy: false,
     globalInjection: true,
