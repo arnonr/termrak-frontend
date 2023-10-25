@@ -19,7 +19,7 @@ export default {
 };
 </script>
 <script setup>
-definePageMeta({
-  layout: false,
-});
+// definePageMeta({
+//   layout: false,
+// });
 </script>

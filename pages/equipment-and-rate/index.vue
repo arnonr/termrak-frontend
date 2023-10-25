@@ -182,7 +182,8 @@ const { data: res } = await useAsyncData("equipment", async () => {
     equipment_department_id:
       search.value.equipment_department == null
         ? undefined
-        : search.value.equipment_department.value,
+        : 1,
+        //search.value.equipment_department.value,
     created_year:
       search.value.created_year == null
         ? undefined
