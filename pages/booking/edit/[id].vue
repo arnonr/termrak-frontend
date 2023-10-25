@@ -933,7 +933,7 @@ const onSubmit = async () => {
   let data = {
     ...booking.value,
     equipment_id: item.value.id,
-    user_id: 1,
+    user_id: useCookie('user').value.id,
     member_status: booking.value.member_status.id,
     period_time: booking.value.period_time.id,
     booking_date:
