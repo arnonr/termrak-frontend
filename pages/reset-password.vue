@@ -10,13 +10,13 @@
                 <h3 class="login__title">SICC</h3>
                 <p>Reset Password</p>
               </div>
-              <div class="login__form">
+              <div class="login__form" v-if="textError == ''">
                 <!-- form start -->
                 <form @submit.prevent="handleSubmit">
                   <div class="login__input-wrapper">
                     <div class="login__input-item">
                       <div class="login__input">
-                        <label for="email">Email</label>
+                        <label for="email">Email : </label>
                         {{ item.email }}
                       </div>
                     </div>
@@ -24,10 +24,10 @@
                   <div class="login__input-wrapper">
                     <div class="login__input-item">
                       <div class="login__input">
-                        <label for="email">Password</label>
+                        <!-- <label for="email">Password</label> -->
                         <input
-                          v-model="item.email"
-                          type="text"
+                          v-model="item.password"
+                          type="password"
                           placeholder="Password"
                         />
                       </div>
@@ -36,10 +36,10 @@
                   <div class="login__input-wrapper">
                     <div class="login__input-item">
                       <div class="login__input">
-                        <label for="email">Confirm Password</label>
+                        <!-- <label for="email">Confirm Password</label> -->
                         <input
-                          v-model="item.email"
-                          type="text"
+                          v-model="item.confirm_password"
+                          type="password"
                           placeholder="Confirm Password"
                         />
                       </div>
@@ -54,6 +54,9 @@
                     </button> -->
                   </div>
                 </form>
+              </div>
+              <div class="login__top mb-30 text-center" v-if="textError != ''">
+                <h3 class="login__title">{{ textError }}</h3>
               </div>
             </div>
           </div>
@@ -89,33 +92,60 @@
   </script> -->
 
 <script setup>
+import LoginShapes from "~~/components/login-register/LoginShapes.vue";
 const runtimeConfig = useRuntimeConfig();
 const router = useRouter();
-import LoginShapes from "~~/components/login-register/LoginShapes.vue";
+const route = useRoute();
+
 const item = ref({
-  email: "",
+  id: route.query.id,
+  email: route.query.email,
+  secret_confirm_email: route.query.secret_confirm_email,
 });
 const textError = ref("");
 
-const validateEmail = (email) => {
-  return String(email)
-    .toLowerCase()
-    .match(
-      /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-    );
+// Check Secrey Key ถ้าผ่านให้นำข้อมุลไปใส่ใน Item แล้วทำการ
+
+const fetchUser = async () => {
+  if (
+    !route.query.id ||
+    !route.query.email ||
+    !route.query.secret_confirm_email
+  ) {
+    textError.value = "Data is Wrong";
+    return;
+  }
+
+  await $fetch(`${runtimeConfig.public.apiBase}/user`, {
+    method: "get",
+    params: item.value,
+  })
+    .then((res) => {
+      if (res.msg == "success") {
+        if (res.data.length == 0) {
+          textError.value = "Data is Wrong";
+          return;
+        }
+        textError.value = "";
+      } else {
+        textError.value = "Data is Wrong";
+      }
+    })
+    .catch((error) => {
+      console.log(error);
+      textError.value = "Data is Wrong";
+    });
 };
 
+fetchUser();
+
 const handleSubmit = async () => {
-  if (item.value.email == "" || item.value.email == null) {
-    useToast("โปรดระบุข้อมูลให้ครบถ้วน", "error");
-    return;
-  }
-  if (!validateEmail(item.value.email)) {
-    useToast("รูปแบบอีเมลไม่ถูกต้อง", "error");
+  if (item.value.password != item.value.confirm_password) {
+    useToast("ยืนยันรหัสผ่านไม่ถูกต้อง", "error");
     return;
   }
 
-  await $fetch(`${runtimeConfig.public.apiBase}/user/resend-confirm-email`, {
+  await $fetch(`${runtimeConfig.public.apiBase}/user/reset-password`, {
     method: "post",
     body: item.value,
   })
@@ -123,23 +153,23 @@ const handleSubmit = async () => {
       if (res.msg == "success") {
         textError.value = "Success";
         useToast(
-          "ระบบได้ทำการส่งข้อมูลยืนยันไปยังอีเมล โปรดตรวจสอบอีเมลของท่าน",
+          "ระบบได้ทำการรีเซ็ตรหัสผ่านแล้ว โปรด Login ด้วยอีเมลของท่าน",
           "success"
         );
         router.push({
           path: "/login",
         });
       } else {
-        textError.value = "Email is Wrong";
+        textError.value = "Data is Wrong";
       }
     })
     .catch((error) => {
       console.log(error.data);
-      textError.value = "Email is Wrong";
+      textError.value = "Data is Wrong";
     });
 };
 
-definePageMeta({
-  layout: false,
-});
+// definePageMeta({
+//   layout: false,
+// });
 </script>
