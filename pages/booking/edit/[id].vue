@@ -147,6 +147,7 @@
                                     <label
                                       for="staticEmail"
                                       class="col-sm-3 col-form-label"
+                                      ><span class="text-danger">*</span
                                       >ข้อมูลตัวอย่าง/Example :
                                     </label>
                                     <div class="col-sm-9">
@@ -933,7 +934,7 @@ const onSubmit = async () => {
   let data = {
     ...booking.value,
     equipment_id: item.value.id,
-    user_id: useCookie('user').value.id,
+    user_id: useCookie("user").value.id,
     member_status: booking.value.member_status.id,
     period_time: booking.value.period_time.id,
     booking_date:
@@ -981,7 +982,7 @@ const nextStep = async (step) => {
       booking.value.booking_date == "" ||
       booking.value.booking_date == null
     ) {
-      useToast("โปรดระบุข้อมูลวันที่จอง", "error");
+      useToast("โปรดระบุข้อมูลวันที่จอง/Booking Date is Require", "error");
       checkSummary.value = false;
       return;
     }
@@ -990,7 +991,13 @@ const nextStep = async (step) => {
       booking.value.period_time == null ||
       booking.value.period_time.id == null
     ) {
-      useToast("โปรดระบุข้อมูลช่วงเวลา", "error");
+      useToast("โปรดระบุข้อมูลช่วงเวลา/Period Time is Require", "error");
+      checkSummary.value = false;
+      return;
+    }
+
+    if (booking.value.example == "" || booking.value.example == null) {
+      useToast("โปรดระบุข้อมูลตัวอย่าง/Example is Require", "error");
       checkSummary.value = false;
       return;
     }
@@ -1047,7 +1054,6 @@ const nextStep = async (step) => {
   // next step function to move to the next step
   formStep.value?.nextTab();
 };
-
 
 useHead({
   title: item.value.title,
