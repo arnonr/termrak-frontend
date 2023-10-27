@@ -60,7 +60,7 @@
                     <div class="mt-30 pl-10 pt-15 pb-10 bg-grey">
                       <h4>
                         <i class="fa-solid fa-edit"></i>
-                        <span class="ml-10">แก้ไข</span>
+                        <span class="ml-10">แก้ไขข้อมูลส่วนตัว</span>
                       </h4>
                     </div>
 
@@ -233,17 +233,79 @@
                                   />
                                 </div>
                               </div>
+
+                              <div class="col-lg-12 text-center mt-40">
+                                <button
+                                  class="btn btn-warning"
+                                  @click="onConfirmSubmit()"
+                                >
+                                  Submit
+                                </button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <!--  -->
+                    <div class="mt-30 pl-10 pt-15 pb-10 bg-grey">
+                      <h4>
+                        <i class="fa-solid fa-edit"></i>
+                        <span class="ml-10">แก้ไขรหัสผ่าน</span>
+                      </h4>
+                    </div>
+
+                    <div class="postbox__details-content-wrapper mt-20 row">
+                      <div class="col-xxl-12 col-xl-12 col-lg-12">
+                        <div>
+                          <div class="card" style="border: none">
+                            <div class="card-body">
+                              <div class="form-group row">
+                                <label
+                                  for="staticEmail"
+                                  class="col-sm-4 col-form-label"
+                                  >รหัสผ่านใหม่/new password :
+                                </label>
+                                <div class="col-sm-8">
+                                  <input
+                                    type="password"
+                                    class="form-control form-control-plaintext"
+                                    id="txt-organization"
+                                    v-model="password.new_password"
+                                  />
+                                </div>
+                              </div>
+
+                              <div class="form-group row">
+                                <label
+                                  for="staticEmail"
+                                  class="col-sm-4 col-form-label"
+                                  >ยืนยันรหัสผ่านใหม่/confirm password :
+                                </label>
+                                <div class="col-sm-8">
+                                  <input
+                                    type="password"
+                                    class="form-control form-control-plaintext"
+                                    id="txt-organization"
+                                    v-model="password.confirm_new_password"
+                                  />
+                                </div>
+                              </div>
+
+                              <div class="col-lg-12 text-center mt-40">
+                                <button
+                                  class="btn btn-warning"
+                                  @click="onConfirmSubmitPassword()"
+                                >
+                                  Reset Password
+                                </button>
+                              </div>
                             </div>
                           </div>
                         </div>
                       </div>
                     </div>
                   </div>
-                </div>
-                <div class="col-lg-12 text-center mt-40">
-                  <button class="btn btn-warning" @click="onConfirmSubmit()">
-                    Submit
-                  </button>
                 </div>
               </div>
             </div>
@@ -271,6 +333,7 @@ const router = useRouter();
 
 // Equipment
 const item = ref({});
+const password = ref({});
 
 const text_error = ref("ไม่สามารถแก้ไขข้อมูลได้");
 
@@ -339,7 +402,7 @@ const onConfirmSubmit = async () => {
 const onSubmit = async () => {
   let data = {
     ...item.value,
-    user_id: 1,
+    user_id: useCookie("user").value.id,
     member_status: item.value.member_status.id,
   };
 
@@ -349,6 +412,77 @@ const onSubmit = async () => {
       email: item.value.email,
       //   password: item.value.password
     },
+  })
+    .then((res) => {
+      if (res.msg == "success") {
+      } else {
+        console.log("error");
+      }
+    })
+    .catch((error) => error.data);
+
+  if (process.client) {
+    const user = useCookie("user");
+    user.value = { ...user.value, email: item.value.email };
+  }
+
+  await $fetch(`${runtimeConfig.public.apiBase}/profile/${item.value.id}`, {
+    method: "put",
+    body: data,
+  })
+    .then((res) => {
+      if (res.msg == "success") {
+        useToast("แก้ไขข้อมูลเสร็จสิ้น", "success");
+        router.push({
+          path: "/profile/" + item.value.user_id,
+        });
+      } else {
+        console.log("error");
+      }
+    })
+    .catch((error) => error.data);
+};
+
+const onConfirmSubmitPassword = async () => {
+  if (
+    password.value.new_password == null ||
+    password.value.new_password == "" ||
+    password.value.confirm_new_password == null ||
+    password.value.confirm_new_password == ""
+  ) {
+    useToast("โปรดระบุข้อมูลให้ครบถ้วน", "error");
+    return;
+  }
+
+  if (password.value.new_password != password.value.confirm_new_password) {
+    useToast("ยืนยันรหัสผ่านไม่ถูกต้อง", "error");
+    return;
+  }
+
+  Swal.fire({
+    title: "Are you sure?",
+    text: "You won't be able to revert this!",
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonColor: "#3085d6",
+    cancelButtonColor: "#d33",
+    confirmButtonText: "Yes, confirm it!",
+  }).then((result) => {
+    if (result.isConfirmed) {
+      onSubmitPassword();
+    }
+  });
+};
+
+const onSubmitPassword = async () => {
+  let data = {
+    id: useCookie("user").value.id,
+    password: password.value.new_password,
+  };
+
+  await $fetch(`${runtimeConfig.public.apiBase}/user/reset-password`, {
+    method: "post",
+    body: data,
   })
     .then((res) => {
       if (res.msg == "success") {
