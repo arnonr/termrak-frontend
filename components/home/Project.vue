@@ -52,7 +52,7 @@ const project = ref([
   {
     name: "Department Facility",
     project_file: "/images/iconwebtechnopark/icon_home4.png",
-    url: "/about/9",
+    url: "/department-facility",
   },
 ]);
 </script>

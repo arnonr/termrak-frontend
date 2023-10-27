@@ -13,6 +13,13 @@
                     class="img-header-logo"
                     alt=""
                   />
+
+                  <!-- <img
+                    src="~/assets/img/iconwebtechnopark/logo-sicc-dark.png"
+                    class="img-header-logo"
+                    alt=""
+                    v-if="useSkin().value == 'skin-dark'"
+                  /> -->
                 </NuxtLink>
 
                 <h5 class="d-none d-xl-block d-lg-block text-color-secondary">
@@ -32,7 +39,7 @@
                 class="header__top-right-4 d-none d-lg-flex justify-content-center"
               >
                 <img
-                  src="~/assets/img/iconwebtechnopark/logo-sci.png"
+                  src="~/assets/img/iconwebtechnopark/logo-sci.jpeg"
                   class="img-header-logo-sci"
                   alt=""
                   style="margin-top: 0px"

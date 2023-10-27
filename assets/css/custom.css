@@ -182,9 +182,6 @@ div.skin-dark {
         color: #a9acbd;
     }
 
-
-
-
     & h1,
     h2,
     h3,
@@ -284,6 +281,15 @@ div.skin-dark {
     }
 
     .postbox__main-wrapper p {
+        color: #a9acbd;
+    }
+
+    .btn-custom-light {
+        color: #a9acbd;
+    }
+
+
+    .blog__content-10-top {
         color: #a9acbd;
     }
 

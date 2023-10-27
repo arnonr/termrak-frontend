@@ -19,7 +19,7 @@
                 </NuxtLink>
               </span>
               <span class="dvdr"><i class="fa-solid fa-circle-small"></i></span>
-              <span> {{ $t("Equipment & Rate") }}</span>
+              <span> {{ $t("Department Facility") }}</span>
             </div>
           </div>
         </div>
@@ -29,7 +29,7 @@
 
   <section class="portfolio__area pt-40 pb-40">
     <div class="container">
-      <!-- <div class="row mb-20">
+      <div class="row mb-20">
         <div class="col-md-4 mb-20">
           <div class="" v-if="selectOptions.equipment_departments.length != 0">
             <v-select
@@ -42,11 +42,11 @@
             ></v-select>
           </div>
         </div>
-      </div> -->
+      </div>
 
       <div class="row">
         <div class="col-xxl-12 mb-20">
-          <h3>{{ $t("Equipment & Rate") }}</h3>
+          <h3>{{ $t("Department Facility") }}</h3>
         </div>
         <div
           class="col-xxl-12"
@@ -185,7 +185,11 @@ const { data: resEquipmentDepartment } = await useAsyncData(
   }
 );
 
-selectOptions.value.equipment_departments = resEquipmentDepartment.value;
+selectOptions.value.equipment_departments = resEquipmentDepartment.value.filter(
+  (x) => {
+    return x.value != 1;
+  }
+);
 
 if (route.query.page) {
   currentPage.value = route.query.page;
@@ -194,11 +198,12 @@ if (route.query.page) {
 const { data: res } = await useAsyncData("equipment", async () => {
   let params = {
     ...search.value,
-    equipment_department_id: 1,
-    //   search.value.equipment_department == null
-    //     ? undefined
-    //     : search.value.equipment_department.value,
-    //search.value.equipment_department.value,
+    not_equipment_department_id: 1,
+    equipment_department_id:
+      search.value.equipment_department == null
+        ? undefined
+        : search.value.equipment_department.value,
+    // search.value.equipment_department.value,
     created_year:
       search.value.created_year == null
         ? undefined
@@ -228,10 +233,6 @@ totalItems.value = res.value.totalData;
 watch(
   [currentPage, search],
   () => {
-    // router.replace({
-    //   name: "equipment-and-rate",
-    //   query: { page: currentPage.value },
-    // });
     refreshNuxtData("equipment");
   },
   { deep: true }
