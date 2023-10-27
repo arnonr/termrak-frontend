@@ -506,7 +506,11 @@
                                           <div class="col-lg-3 col-md-3 col-6">
                                             <span>
                                               {{ $t("Price") }}
-                                              {{ it.total_price.toLocaleString('en-US') }}.00
+                                              {{
+                                                it.total_price.toLocaleString(
+                                                  "en-US"
+                                                )
+                                              }}.00
 
                                               {{ $t("Bath") }}</span
                                             >
@@ -520,7 +524,11 @@
                                           style="background-color: #eee"
                                         >
                                           {{ $t("Total Price") }}
-                                          {{ booking.total_price.toLocaleString('en-US') }}.00
+                                          {{
+                                            booking.total_price.toLocaleString(
+                                              "en-US"
+                                            )
+                                          }}.00
                                           {{ $t("Bath") }}
                                         </h4>
                                       </div>

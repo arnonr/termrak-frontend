@@ -29,6 +29,20 @@
 
   <section class="portfolio__area pt-40 pb-40">
     <div class="container">
+      <div class="row mb-20">
+        <div class="col-md-4 mb-20">
+          <div class="" v-if="selectOptions.equipment_departments.length != 0">
+            <v-select
+              label="title"
+              placeholder="หน่วยงาน/Department"
+              :options="selectOptions.equipment_departments"
+              v-model="search.equipment_department"
+              class="form-control v-select-no-border"
+              :clearable="true"
+            ></v-select>
+          </div>
+        </div>
+      </div>
       <div class="row">
         <div class="col-xxl-12 mb-20">
           <h3>{{ $t("Sample Submission") }}</h3>
@@ -163,7 +177,7 @@ const { data: resEquipmentDepartment } = await useAsyncData(
     );
 
     let d = data.data.map((e) => {
-      return { title: e.name, value: e.id };
+      return { title: e.name_short, value: e.id };
     });
 
     return d;
@@ -212,10 +226,10 @@ totalItems.value = res.value.totalData;
 watch(
   [currentPage, search],
   () => {
-    router.replace({
-      name: "equipment-and-rate",
-      query: { page: currentPage.value },
-    });
+    // router.replace({
+    //   name: "equipment-and-rate",
+    //   query: { page: currentPage.value },
+    // });
     refreshNuxtData("equipment");
   },
   { deep: true }
@@ -237,7 +251,7 @@ watch([resEquipmentDepartment], () => {
 
 useHead({
   title:
-    "Equipment & Rate ศูนย์เครื่องมือวิทยาศาสตร์และคอมพิวเตอร์สมรรถนะสูง คณะวิทยาศาสตร์ประยุกต์",
+    "Sample Submission ศูนย์เครื่องมือวิทยาศาสตร์และคอมพิวเตอร์สมรรถนะสูง คณะวิทยาศาสตร์ประยุกต์",
 });
 
 definePageMeta({
