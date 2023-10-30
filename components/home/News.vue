@@ -121,13 +121,15 @@ if (res.value != null) {
 
 const onChangeNewsType = async (id, category) => {
   search.value.news_type_id = id;
-  refreshNuxtData("news");
+  await refreshNuxtData("news");
   activeCategory.value = category;
+  items.value = res.value.data;
+//   items.value = res.value.data;
 };
 
-watch([res], () => {
-  items.value = res.value.data;
-});
+// watch([res], () => {
+//   items.value = res.value.data;
+// });
 
 watch([resNewsType], () => {
   newsType.value = resNewsType.value.data;

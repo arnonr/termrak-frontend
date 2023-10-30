@@ -245,7 +245,7 @@ watchEffect(() => {
 });
 
 watch([res], () => {
-  items.value = res.value.data;
+//   items.value = res.value.data;
 });
 
 watch([resEquipmentDepartment], () => {
