@@ -4,38 +4,15 @@
       <div class="row">
         <div class="col-xxl-12" v-if="item != null">
           <div class="breadcrumb__content p-relative z-index-1">
-            <div class="postbox__category">
-              <NuxtLink
-                :to="{
-                  path: '/equipment-and-rate',
-                }"
-                style="padding: 10px"
-              >
-                {{ $t("Equipment & Rate") }}
-              </NuxtLink>
-            </div>
-
             <div class="breadcrumb__list">
-              <span class="breadcrumb-item-1">
-                <NuxtLink
-                  :to="{
-                    path: '/',
-                  }"
-                >
-                  {{ $t("Home") }}
-                </NuxtLink>
+              <span> ผู้ดูแลระบบ </span>
+              <span class="dvdr"><i class="fa-solid fa-circle-small"></i></span>
+              <span> เครื่องมือวิทยาศาสตร์ </span>
+              <span class="dvdr"><i class="fa-solid fa-circle-small"></i></span>
+              <span>
+                <NuxtLink href="/admin/equipment"> รายการเครื่องมือ</NuxtLink>
               </span>
-              <span class="dvdr breadcrumb-item-1"
-                ><i class="fa-solid fa-circle-small"></i
-              ></span>
-              <span class="breadcrumb-item-1">
-                <NuxtLink href="/equipment">
-                  {{ $t("Equipment & Rate") }}</NuxtLink
-                >
-              </span>
-              <span class="dvdr breadcrumb-item-1"
-                ><i class="fa-solid fa-circle-small"></i
-              ></span>
+              <span class="dvdr"><i class="fa-solid fa-circle-small"></i></span>
               <span> {{ item.title }} </span>
             </div>
           </div>
@@ -48,18 +25,33 @@
     <div class="container">
       <div class="row">
         <div class="col-xxl-12">
-          <div class="postbox__wrapper" v-if="item">
+          <div class="postbox__wrapper" v-if="item != null">
             <!-- Image -->
             <!-- <div class="postbox__top">
-              
-            </div> -->
+                
+              </div> -->
             <!-- Content -->
             <div class="postbox__main">
               <div class="row">
                 <div class="col-lg-12">
                   <div class="postbox__main-wrapper">
                     <div class="postbox__details-content-wrapper">
-                      <!-- <h3>{{ item.equipment_department.name }}</h3> -->
+                      <div class="text-end">
+                        <NuxtLink
+
+                          :to="'/admin/equipment/edit/' + item.id"
+                          class="btn btn-warning"
+                          >Edit</NuxtLink
+                        >
+
+                        <button
+                          class="btn btn-danger ml-5"
+                          @click="onConfirmDelete(item.id)"
+                        >
+                          Delete
+                        </button>
+                      </div>
+
                       <h3>{{ item.title_en }}</h3>
                       <h3>{{ item.title_th }}</h3>
                     </div>
@@ -150,19 +142,19 @@
                       <img :src="item.rate_file" alt="" />
                     </div>
 
-                    <div class="mt-30 text-center">
-                      <div class="div-btn-sample-submission">
-                        <div class="col">
-                          <div class="tp-button-demo text-center">
-                            <NuxtLink
-                              :to="'/sample-submission/' + item.id"
-                              class="tp-btn-border-yellow text-uppercase"
-                              >{{ $t("Sample Submission") }}</NuxtLink
-                            >
-                          </div>
-                        </div>
-                      </div>
-                    </div>
+                    <!-- <div class="mt-30 text-center">
+                      <NuxtLink
+                        :to="'/sample-submission/' + item.id"
+                        class="btn btn-warning"
+                        >Edit</NuxtLink
+                      >
+
+                      <NuxtLink
+                        :to="'/sample-submission/' + item.id"
+                        class="btn btn-danger ml-5"
+                        >Delete</NuxtLink
+                      >
+                    </div> -->
                   </div>
                 </div>
               </div>
@@ -186,11 +178,18 @@ import {
 } from "swiper";
 import dayjs from "dayjs";
 import "dayjs/locale/th";
+import vSelect from "vue-select";
+import "vue-select/dist/vue-select.css";
+import Swal from "sweetalert2";
+import Toastify from "toastify-js";
+import "toastify-js/src/toastify.css";
+
 import buddhistEra from "dayjs/plugin/buddhistEra";
 dayjs.extend(buddhistEra);
 
 const runtimeConfig = useRuntimeConfig();
 const route = useRoute();
+const router = useRouter();
 const modules = [Autoplay, FreeMode, Navigation, Pagination, Scrollbar, Thumbs];
 
 const equipmentGallery = ref([]);
@@ -203,19 +202,18 @@ const setThumbsSwiper = (swiper) => {
 };
 
 // Fetch
-const { data: res1 } = await useAsyncData("equipment-gallery", async () => {
+const fetchGallery = async () => {
   let data = await $fetch(`${runtimeConfig.public.apiBase}/equipment-gallery`, {
     params: {
       is_publish: 1,
       equipment_id: route.params.id,
     },
-  });
-  return data;
-});
+  }).catch((error) => error.data);
 
-equipmentGallery.value = [...res1.value.data];
+  equipmentGallery.value = data.data;
+};
 
-const { data: res } = await useAsyncData("equipment", async () => {
+const fetchItem = async () => {
   let data = await $fetch(
     `${runtimeConfig.public.apiBase}/equipment/${route.params.id}`,
     {
@@ -223,14 +221,52 @@ const { data: res } = await useAsyncData("equipment", async () => {
         lang: useCookie("lang").value,
       },
     }
-  );
-  return data;
+  ).catch((error) => error.data);
+
+  item.value = data.data;
+};
+
+onMounted(() => {
+  fetchGallery();
+  fetchItem();
 });
 
-item.value = res.value.data;
+// Event
+const onConfirmDelete = async (id) => {
+  Swal.fire({
+    title: "Are you sure?",
+    text: "You won't be able to revert this!",
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonColor: "#3085d6",
+    cancelButtonColor: "#d33",
+    confirmButtonText: "Yes, Cancle it!",
+  }).then((result) => {
+    if (result.isConfirmed) {
+      onDelete(id);
+    }
+  });
+};
+
+const onDelete = async (id) => {
+  await $fetch(`${runtimeConfig.public.apiBase}/equipment/${id}`, {
+    method: "delete",
+  })
+    .then((res) => {
+      if (res.msg == "success") {
+        useToast("ลบรายการเสร็จสิ้น", "success");
+        router.push({ path: "/admin/equipment" });
+      } else {
+        throw new Error("ERROR");
+      }
+    })
+    .catch((error) => error.data);
+};
+
+
 
 useHead({
-  title: item.value.title,
+  title: "Equipment",
 });
 </script>
 

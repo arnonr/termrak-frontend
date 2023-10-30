@@ -95,6 +95,7 @@ export default defineNuxtConfig({
   imports: {
     dirs: ["store"],
   },
+//   plugins: [{ src: "~/plugins/froala-editor.client.js", mode: "client" }],
   app: {
     head: {
       title: "SICC",

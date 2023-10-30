@@ -89,6 +89,54 @@ export default {
         //   name_en: "Edit",
         // },
       ],
+      member_statuses: [
+        {
+          id: 1,
+          value: 1,
+          name_th: "บุคลากรคณะวิทยาศาสตร์ มจพ.",
+          name_en: "บุคลากรคณะวิทยาศาสตร์ มจพ.",
+        },
+        {
+          id: 2,
+          value: 2,
+          name_th: "บุคลากรภายในมหาวิทยาลัย",
+          name_en: "บุคลากรภายในมหาวิทยาลัย",
+        },
+        {
+          id: 3,
+          value: 3,
+          name_th: "บุคลากรมหาวิทยาลัยภายนอก",
+          name_en: "บุคลากรมหาวิทยาลัยภายนอก",
+        },
+        {
+          id: 4,
+          value: 4,
+          name_th: "หน่วยงาน ราชการ/รัฐวิสหกิจ",
+          name_en: "หน่วยงาน ราชการ/รัฐวิสหกิจ",
+        },
+        {
+          id: 5,
+          value: 5,
+          name_th: "เอกชน",
+          name_en: "เอกชน",
+        },
+      ],
+      publishes: [
+        {
+          id: 0,
+          value: 0,
+          name_th: "none",
+          name_en: "none",
+          color: 'warning'
+        },
+        {
+          id: 1,
+          value: 1,
+          name_th: "publish",
+          name_en: "publish",
+          color: 'success'
+        },
+      ],
     };
   },
 };

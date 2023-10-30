@@ -161,8 +161,24 @@ h6 {
     border: none !important;
 }
 
+.table-admin {
+    color: #000;
+}
+
+.uppy-Dashboard-inner {
+    width: 100% !important
+}
+
 /* skin-dark */
 div.skin-dark {
+    .table-admin {
+        color: #a9acbd;
+    }
+
+    .table-striped>tbody>tr:nth-of-type(odd)>* {
+        color: #a9acbd
+    }
+
     .header__padding-4 {
         background-color: #252a3d;
     }
