@@ -112,10 +112,13 @@
                                   <hr class="hr-dotted" />
                                 </div>
 
-                                <div class="col-lg-12 mt-10" v-if="booking.status_id == 3">
+                                <div
+                                  class="col-lg-12 mt-10"
+                                  v-if="booking.status_id == 3"
+                                >
                                   <span class="fw-bold text-dark"
-                                    >หมายเหตุ : </span
-                                  >
+                                    >หมายเหตุ :
+                                  </span>
                                   <span>{{ booking.reject_comment }}</span>
                                   <hr class="hr-dotted" />
                                 </div>
@@ -267,7 +270,6 @@
                                 <div class="text-center">
                                   <button
                                     class="btn btn-warning text-uppercase"
-                                    :to="'/booking/' + booking.id"
                                     @click="
                                       () => {
                                         router.push({
@@ -472,7 +474,6 @@ onMounted(() => {
   checkSummary.value = true;
 });
 
-
 const onConfirmDelete = async (id) => {
   Swal.fire({
     title: "Are you sure?",
@@ -516,7 +517,6 @@ useHead({
 definePageMeta({
   middleware: "auth",
 });
-
 </script>
 
 <style scoped>

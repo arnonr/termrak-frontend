@@ -7,8 +7,14 @@
   >
     <div class="blog__item-10 white-bg transition-3 mb-30 fix">
       <div class="blog__thumb-10 w-img fix w-img-news">
-        <nuxt-link v-if="item.sdg_file" :to="'news/' + item.id">
-          <img :src="item.sdg_file" alt="blog img"  class="img-news" />
+        <nuxt-link
+          v-if="item.sdg_file"
+          :to="{
+            name: 'news-id',
+            params: { id: item.id },
+          }"
+        >
+          <img :src="item.sdg_file" alt="blog img" class="img-news" />
         </nuxt-link>
       </div>
       <div class="blog__content-10">
@@ -18,7 +24,13 @@
           </div>
 
           <h3 class="blog__title-10">
-            <nuxt-link :to="'news/' + item.id">{{ item.title }}</nuxt-link>
+            <nuxt-link
+              :to="{
+                name: 'news-id',
+                params: { id: item.id },
+              }"
+              >{{ item.title }}</nuxt-link
+            >
           </h3>
         </div>
         <div
@@ -28,7 +40,10 @@
             <div class="blog__meta-author-content-10">
               <nuxt-link
                 v-if="item.sdg_file"
-                :to="'news/' + item.id"
+                :to="{
+                  name: 'news-id',
+                  params: { id: item.id },
+                }"
                 class="text-color-primary"
               >
                 อ่านต่อ <i class="fa fa-arrow-right news-link-view"></i>
@@ -89,7 +104,7 @@ export default {
     max-height: 190px;
     min-height: 190px;
   }
-  .img-news{
+  .img-news {
     min-height: 190px !important;
   }
 }

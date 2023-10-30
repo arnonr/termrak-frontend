@@ -140,7 +140,10 @@
                   </th>
                   <td class="text-center">
                     <NuxtLink
-                      :to="'/admin/news/' + it.id"
+                      :to="{
+                        name: 'admin-news-id',
+                        params: { id: it.id },
+                      }"
                       class="btn btn-warning text-uppercase"
                     >
                       <i class="fa-regular fa-edit"></i>

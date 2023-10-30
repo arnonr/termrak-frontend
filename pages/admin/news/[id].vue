@@ -38,7 +38,10 @@
                     <div class="postbox__details-content-wrapper">
                       <div class="text-end">
                         <NuxtLink
-                          :to="'/admin/news/edit/' + item.id"
+                          :to="{
+                            name: 'admin-news-edit-id',
+                            params: { id: item.id },
+                          }"
                           class="btn btn-warning"
                           >Edit</NuxtLink
                         >

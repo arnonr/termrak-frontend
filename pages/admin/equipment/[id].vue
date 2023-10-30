@@ -38,8 +38,10 @@
                     <div class="postbox__details-content-wrapper">
                       <div class="text-end">
                         <NuxtLink
-
-                          :to="'/admin/equipment/edit/' + item.id"
+                          :to="{
+                            name: 'admin-equipment-edit-id',
+                            params: { id: item.id },
+                          }"
                           class="btn btn-warning"
                           >Edit</NuxtLink
                         >
@@ -142,19 +144,6 @@
                       <img :src="item.rate_file" alt="" />
                     </div>
 
-                    <!-- <div class="mt-30 text-center">
-                      <NuxtLink
-                        :to="'/sample-submission/' + item.id"
-                        class="btn btn-warning"
-                        >Edit</NuxtLink
-                      >
-
-                      <NuxtLink
-                        :to="'/sample-submission/' + item.id"
-                        class="btn btn-danger ml-5"
-                        >Delete</NuxtLink
-                      >
-                    </div> -->
                   </div>
                 </div>
               </div>
@@ -262,8 +251,6 @@ const onDelete = async (id) => {
     })
     .catch((error) => error.data);
 };
-
-
 
 useHead({
   title: "Equipment",

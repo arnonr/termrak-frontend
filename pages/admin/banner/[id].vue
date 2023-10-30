@@ -38,7 +38,10 @@
                     <div class="postbox__details-content-wrapper">
                       <div class="text-end">
                         <NuxtLink
-                          :to="'/admin/banner/edit/' + item.id"
+                          :to="{
+                            name: 'admin-banner-edit-id',
+                            params: { id: item.id },
+                          }"
                           class="btn btn-warning"
                           >Edit</NuxtLink
                         >
@@ -96,10 +99,12 @@
                             v-if="item.is_publish != null"
                             :class="
                               'badge rounded-pill bg-' +
-                              booking_data.data().publishes[item.is_publish].color
+                              booking_data.data().publishes[item.is_publish]
+                                .color
                             "
                             >{{
-                              booking_data.data().publishes[item.is_publish].name_th
+                              booking_data.data().publishes[item.is_publish]
+                                .name_th
                             }}</span
                           >
 

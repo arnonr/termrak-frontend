@@ -65,27 +65,14 @@
                   </th>
                   <td class="text-center">
                     <NuxtLink
-                      :to="'/booking/' + it.id"
+                      :to="{
+                        name: 'booking-id',
+                        params: { id: it.id },
+                      }"
                       class="btn btn-warning text-uppercase"
                     >
                       <i class="fa-regular fa-edit"></i>
                     </NuxtLink>
-
-                    <!-- <NuxtLink
-                      v-if="it.status_id == 1"
-                      :to="'/booking/' + it.id"
-                      class="btn btn-warning text-uppercase ml-5"
-                    >
-                      <i class="fa-regular fa-edit"></i>
-                    </NuxtLink> -->
-
-                    <!-- <button
-                      class="btn btn-danger ml-5"
-                      :disabled="it.status_id > 1 ? true : false"
-                      @click="onConfirmDelete(it.id)"
-                    >
-                      ยกเลิก
-                    </button> -->
                   </td>
                 </tr>
               </tbody>

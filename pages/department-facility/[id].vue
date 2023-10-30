@@ -155,7 +155,10 @@
                         <div class="col">
                           <div class="tp-button-demo text-center">
                             <NuxtLink
-                              :to="'/sample-submission/' + item.id"
+                              :to="{
+                                name: 'sample-submission-id',
+                                params: { id: item.id },
+                              }"
                               class="tp-btn-border-yellow text-uppercase"
                               >{{ $t("Sample Submission") }}</NuxtLink
                             >

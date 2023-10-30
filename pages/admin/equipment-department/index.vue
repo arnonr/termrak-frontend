@@ -98,13 +98,6 @@
                     >
                   </th>
                   <td class="text-center">
-                    <!-- <NuxtLink
-                      :to="'/booking/' + it.id"
-                      class="btn btn-warning text-uppercase"
-                    >
-                      <i class="fa-regular fa-edit"></i>
-                    </NuxtLink> -->
-
                     <NuxtLink
                       @click="
                         () => {
