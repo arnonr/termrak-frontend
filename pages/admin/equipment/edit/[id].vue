@@ -444,7 +444,7 @@ uppy.on("upload-success", (file, response) => {
 });
 
 uppy.on("file-removed", (file, reason) => {
-  console.log(file, reason);
+ 
   if (file.meta.equipment_gallery_id != null) {
     $fetch(
       `${runtimeConfig.public.apiBase}/equipment-gallery/${file.meta.equipment_gallery_id}`,
