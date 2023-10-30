@@ -21,7 +21,7 @@
     <div class="container">
       <div class="row">
         <div class="col-12">
-          <h4>แบบฟอร์มเพิ่มข้อมูลเครื่องมือวิทยาศาสตร์</h4>
+          <h4>แบบฟอร์มแก้ไขข้อมูลเครื่องมือวิทยาศาสตร์</h4>
         </div>
 
         <div class="mt-30 pl-10 pt-15 pb-10 bg-grey">
