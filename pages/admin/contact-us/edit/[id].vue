@@ -9,9 +9,7 @@
               <span class="dvdr"><i class="fa-solid fa-circle-small"></i></span>
               <span> ระบบประชาสัมพันธ์ </span>
               <span class="dvdr"><i class="fa-solid fa-circle-small"></i></span>
-              <span>
-                <NuxtLink href="/admin/about-us"> รายการเกี่ยวกับเรา </NuxtLink>
-              </span>
+              <span> ติดต่อเรา </span>
             </div>
           </div>
         </div>
@@ -23,7 +21,7 @@
     <div class="container">
       <div class="row">
         <div class="col-12">
-          <h4>แบบฟอร์มแก้ไขข้อมูลเกี่ยวกับเรา</h4>
+          <h4>แบบฟอร์มแก้ไขข้อมูลติดต่อเรา</h4>
         </div>
 
         <div class="mt-30 pl-10 pt-15 pb-10 bg-grey">
@@ -202,7 +200,7 @@ const initFroala = () => {
 // Function Fetch
 
 const { data: res } = await useFetch(
-  `${runtimeConfig.public.apiBase}/about/${route.params.id}`,
+  `${runtimeConfig.public.apiBase}/contact/1`,
   {
     server: true,
   }
@@ -227,7 +225,7 @@ const onSubmit = async () => {
   let type_object = {
     text_success: "แก้ไขรายการเสร็จสิ้น",
     method: "put",
-    url: runtimeConfig.public.apiBase + "/about/" + item.value.id,
+    url: runtimeConfig.public.apiBase + "/contact/" + item.value.id,
   };
 
   let data = {
@@ -247,7 +245,7 @@ const onSubmit = async () => {
     .then((res) => {
       if (res.msg == "success") {
         useToast(type_object.text_success, "success");
-        router.push({ path: "/admin/about-us/" + res.id });
+        router.push({ path: "/admin/contact-us/" + res.id });
       } else {
         throw new Error("ERROR");
       }
