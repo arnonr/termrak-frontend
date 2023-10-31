@@ -47,7 +47,7 @@ const project = ref([
   {
     name: "Direction",
     project_file: "/images/iconwebtechnopark/icon_home3.png",
-    url: "/about/8",
+    url: "/direction",
   },
   {
     name: "Department Facility",
