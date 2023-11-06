@@ -2,37 +2,16 @@
   <section class="breadcrumb__area include-bg pb-40 pt-30 grey-bg-4">
     <div class="container">
       <div class="row">
-        <div class="col-xxl-12" v-if="item != null">
+        <div class="col-xxl-12">
           <div class="breadcrumb__content p-relative z-index-1">
-            <div class="postbox__category">
-              <NuxtLink
-                :to="{
-                  path: '/sample-submission',
-                }"
-                style="padding: 10px"
-              >
-                {{ $t("Sample Submission") }}
-              </NuxtLink>
-            </div>
-
             <div class="breadcrumb__list">
-              <span class="breadcrumb-item-1">
-                <NuxtLink
-                  :to="{
-                    path: '/',
-                  }"
-                >
-                  {{ $t("Home") }}
-                </NuxtLink>
-              </span>
-              <span class="dvdr breadcrumb-item-1"
-                ><i class="fa-solid fa-circle-small"></i
-              ></span>
-              <span class="breadcrumb-item-1">
-                <NuxtLink href="/equipment-and-rate">
-                  {{ $t("Sample Submission") }}</NuxtLink
-                >
-              </span>
+              <span> ผู้ดูแลระบบ </span>
+              <span class="dvdr"><i class="fa-solid fa-circle-small"></i></span>
+              <span> ระบบจอง </span>
+              <span class="dvdr"><i class="fa-solid fa-circle-small"></i></span>
+              <span>
+                <NuxtLink href="/admin/booking"> รายการจอง </NuxtLink></span
+              >
             </div>
           </div>
         </div>
@@ -47,7 +26,7 @@
           <div class="postbox__wrapper" v-if="item">
             <!-- Image -->
             <!-- <div class="postbox__top">
-            </div> -->
+                </div> -->
             <!-- Content -->
             <div class="postbox__main">
               <div class="row">
@@ -135,10 +114,6 @@
                                         "
                                         placeholder="ช่วงเวลา/Period Time"
                                         :options="selectOptions.period_times"
-                                        :selectable="
-                                          (option) => option.available == true
-                                        "
-                                        item-value="id"
                                         id="slt-period_time"
                                         v-model="booking.period_time"
                                         class="form-control v-select-no-border"
@@ -690,6 +665,7 @@ import "@vuepic/vue-datepicker/dist/main.css";
 import Swal from "sweetalert2";
 import Toastify from "toastify-js";
 import "toastify-js/src/toastify.css";
+
 import { FormWizard, TabContent } from "vue3-form-wizard";
 import "vue3-form-wizard/dist/style.css";
 // import { object, string, number, date } from "yup";
@@ -709,7 +685,6 @@ const item = ref(null);
 const booking = ref({
   booking_date: dayjs(),
   example: "",
-  // Equipment_booking_method
   equipment_booking_method: [],
   prefix: "",
   firstname: "",
@@ -727,7 +702,6 @@ const booking = ref({
   is_publish: 1,
 });
 const equipmentMethod = ref([]);
-const profile = ref({});
 const checkSummary = ref(false);
 const text_summary_error = ref("โปรดระบุข้อมูลให้ครบถ้วน");
 
@@ -750,34 +724,24 @@ const format = (date) => {
   }
 };
 
-// watch
-watch(
-  () => booking.value.booking_date,
-  (new_value, old_value) => {
-    if (new_value != old_value) {
-      booking.value.period_time = null;
-      onCheckBookingDate();
-    }
-  },
-  { deep: true }
-);
-
 // Function Fetch
-const { data: resProfile } = await useAsyncData("profile", async () => {
-  let data = await $fetch(`${runtimeConfig.public.apiBase}/profile`, {
-    params: {
-      user_id: useCookie("user").value.id,
-    },
-  });
-
+const { data: res1 } = await useAsyncData("booking", async () => {
+  let data = await $fetch(
+    `${runtimeConfig.public.apiBase}/booking/${route.params.id}`,
+    {
+      params: {
+        lang: useCookie("lang").value,
+      },
+    }
+  );
   return data;
 });
 
-profile.value = resProfile.value.data[0];
+booking.value = res1.value.data;
 
 const { data: res } = await useAsyncData("equipment", async () => {
   let data = await $fetch(
-    `${runtimeConfig.public.apiBase}/equipment/${route.params.id}`,
+    `${runtimeConfig.public.apiBase}/equipment/${res1.value.data.equipment_id}`,
     {
       params: {
         lang: useCookie("lang").value,
@@ -798,7 +762,7 @@ const { data: resEquipmentMethod } = await useAsyncData(
       {
         params: {
           is_publish: 1,
-          equipment_id: route.params.id,
+          equipment_id: res1.value.data.equipment_id,
           lang: useCookie("lang").value,
         },
       }
@@ -811,35 +775,6 @@ const { data: resEquipmentMethod } = await useAsyncData(
 equipmentMethod.value = resEquipmentMethod.value.data;
 
 // Method
-const onCheckBookingDate = async () => {
-  if (booking.value.booking_date == null) {
-    return;
-  }
-
-  await $fetch(`${runtimeConfig.public.apiBase}/booking/check-booking-date`, {
-    method: "get",
-    params: {
-      booking_date: dayjs(booking.value.booking_date).format("YYYY-MM-DD"),
-    },
-  })
-    .then((res) => {
-      if (res.msg == "success") {
-        let pt = selectOptions.value.period_times.map((x) => {
-          let pt_db = res.period_available.find((p) => {
-            return p.id == x.id;
-          });
-          x.available = pt_db.available;
-          return x;
-        });
-
-        selectOptions.value.period_times = [...pt];
-      } else {
-        throw new Error("ERROR");
-      }
-    })
-    .catch((error) => error.data);
-};
-
 const onSelectMethod = (it, event) => {
   if (event == true) {
     let quantity_input = document.getElementById(
@@ -870,6 +805,62 @@ const onSelectMethod = (it, event) => {
     booking.value.equipment_booking_method = filtered;
   }
 };
+
+const onLoadEquipmentBookingMethod = () => {
+  if (booking.value.equipment_booking_method.length != 0) {
+    booking.value.equipment_method = booking.value.equipment_booking_method.map(
+      (x) => {
+        let equipment_method = equipmentMethod.value.find((em) => {
+          return x.equipment_method_id == em.id;
+        });
+
+        x.name = equipment_method.name;
+        x.name_short = equipment_method.name_short;
+        // x.price = equipment_method.price;
+        x.price_normal = equipment_method.price;
+        x.unit = equipment_method.unit;
+
+        let no_input = document.getElementById(
+          "equipment-method-no-" + equipment_method.id
+        );
+        no_input.checked = true;
+
+        let quantity_input = document.getElementById(
+          "equipment-method-quantity-" + equipment_method.id
+        );
+
+        quantity_input.removeAttribute("disabled");
+        quantity_input.value = x.quantity;
+
+        return x;
+      }
+    );
+
+    booking.value.total_price = booking.value.price;
+  }
+};
+
+// onLoadEquipmentBookingMethod();
+
+onMounted(() => {
+  booking.value.equipment_method = [];
+  if (booking.value.period_time) {
+    let period_time = booking.value.period_time;
+    booking.value.period_time =
+      selectOptions.value.period_times[period_time - 1];
+  }
+  if (booking.value.booking_date) {
+    booking.value.booking_date = dayjs(booking.value.booking_date);
+  }
+
+  if (booking.value.member_status) {
+    let member_status = booking.value.member_status;
+    booking.value.member_status =
+      selectOptions.value.member_statuses[member_status - 1];
+  }
+
+  onLoadEquipmentBookingMethod();
+});
 
 const onChangeQuantity = (id, event) => {
   booking.value.equipment_booking_method =
@@ -910,29 +901,6 @@ const calPrice = () => {
     });
 };
 
-onMounted(() => {
-  if (profile.value.member_status) {
-    let member_status = profile.value.member_status;
-    profile.value.member_status =
-      selectOptions.value.member_statuses[member_status - 1];
-  }
-
-  profile.value.email = useCookie("user").value.email;
-
-  booking.value.prefix = profile.value.prefix;
-  booking.value.firstname = profile.value.firstname;
-  booking.value.surname = profile.value.surname;
-  booking.value.member_status = profile.value.member_status;
-  booking.value.organization = profile.value.organization;
-  booking.value.contact_address = profile.value.contact_address;
-  booking.value.phone = profile.value.phone;
-  booking.value.email = profile.value.email;
-  booking.value.invoice_address = profile.value.invoice_address;
-  booking.value.tax_id = profile.value.tax_id;
-
-  onCheckBookingDate();
-});
-
 const onConfirmSubmit = async () => {
   Swal.fire({
     title: "Are you sure?",
@@ -953,7 +921,7 @@ const onSubmit = async () => {
   let data = {
     ...booking.value,
     equipment_id: item.value.id,
-    user_id: useCookie("user").value.id,
+    // user_id: useCookie("user").value.id,
     member_status: booking.value.member_status.id,
     period_time: booking.value.period_time.id,
     booking_date:
@@ -963,16 +931,15 @@ const onSubmit = async () => {
     price: booking.value.total_price,
   };
 
-  await $fetch(`${runtimeConfig.public.apiBase}/booking`, {
-    method: "post",
+  await $fetch(`${runtimeConfig.public.apiBase}/booking/${route.params.id}`, {
+    method: "put",
     body: data,
   })
     .then((res) => {
       if (res.msg == "success") {
-        localStorage.setItem("added", 1);
-        console.log("Book Success");
+        useToast("แก้ไขรายการเสร็จสิ้น", "success");
         router.push({
-          path: "/booking",
+          path: "/admin/booking/" + res.id,
         });
       } else {
         console.log("error");
@@ -1002,7 +969,7 @@ const nextStep = async (step) => {
       booking.value.booking_date == "" ||
       booking.value.booking_date == null
     ) {
-      useToast("โปรดระบุข้อมูลวันที่จอง", "error");
+      useToast("โปรดระบุข้อมูลวันที่จอง/Booking Date is Require", "error");
       checkSummary.value = false;
       return;
     }
@@ -1011,13 +978,13 @@ const nextStep = async (step) => {
       booking.value.period_time == null ||
       booking.value.period_time.id == null
     ) {
-      useToast("โปรดระบุข้อมูลช่วงเวลา", "error");
+      useToast("โปรดระบุข้อมูลช่วงเวลา/Period Time is Require", "error");
       checkSummary.value = false;
       return;
     }
 
     if (booking.value.example == "" || booking.value.example == null) {
-      useToast("โปรดระบุข้อมูลตัวอย่าง", "error");
+      useToast("โปรดระบุข้อมูลตัวอย่าง/Example is Require", "error");
       checkSummary.value = false;
       return;
     }

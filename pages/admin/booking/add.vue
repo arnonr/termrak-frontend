@@ -2,37 +2,16 @@
   <section class="breadcrumb__area include-bg pb-40 pt-30 grey-bg-4">
     <div class="container">
       <div class="row">
-        <div class="col-xxl-12" v-if="item != null">
+        <div class="col-xxl-12">
           <div class="breadcrumb__content p-relative z-index-1">
-            <div class="postbox__category">
-              <NuxtLink
-                :to="{
-                  path: '/sample-submission',
-                }"
-                style="padding: 10px"
-              >
-                {{ $t("Sample Submission") }}
-              </NuxtLink>
-            </div>
-
             <div class="breadcrumb__list">
-              <span class="breadcrumb-item-1">
-                <NuxtLink
-                  :to="{
-                    path: '/',
-                  }"
-                >
-                  {{ $t("Home") }}
-                </NuxtLink>
-              </span>
-              <span class="dvdr breadcrumb-item-1"
-                ><i class="fa-solid fa-circle-small"></i
-              ></span>
-              <span class="breadcrumb-item-1">
-                <NuxtLink href="/equipment-and-rate">
-                  {{ $t("Sample Submission") }}</NuxtLink
-                >
-              </span>
+              <span> ผู้ดูแลระบบ </span>
+              <span class="dvdr"><i class="fa-solid fa-circle-small"></i></span>
+              <span> ระบบจอง </span>
+              <span class="dvdr"><i class="fa-solid fa-circle-small"></i></span>
+              <span>
+                <NuxtLink href="/admin/booking"> รายการจอง </NuxtLink></span
+              >
             </div>
           </div>
         </div>
@@ -45,9 +24,6 @@
       <div class="row">
         <div class="col-xxl-12">
           <div class="postbox__wrapper" v-if="item">
-            <!-- Image -->
-            <!-- <div class="postbox__top">
-            </div> -->
             <!-- Content -->
             <div class="postbox__main">
               <div class="row">
@@ -135,10 +111,6 @@
                                         "
                                         placeholder="ช่วงเวลา/Period Time"
                                         :options="selectOptions.period_times"
-                                        :selectable="
-                                          (option) => option.available == true
-                                        "
-                                        item-value="id"
                                         id="slt-period_time"
                                         v-model="booking.period_time"
                                         class="form-control v-select-no-border"
@@ -750,17 +722,7 @@ const format = (date) => {
   }
 };
 
-// watch
-watch(
-  () => booking.value.booking_date,
-  (new_value, old_value) => {
-    if (new_value != old_value) {
-      booking.value.period_time = null;
-      onCheckBookingDate();
-    }
-  },
-  { deep: true }
-);
+// Fetch
 
 // Function Fetch
 const { data: resProfile } = await useAsyncData("profile", async () => {
@@ -777,7 +739,7 @@ profile.value = resProfile.value.data[0];
 
 const { data: res } = await useAsyncData("equipment", async () => {
   let data = await $fetch(
-    `${runtimeConfig.public.apiBase}/equipment/${route.params.id}`,
+    `${runtimeConfig.public.apiBase}/equipment/${1}`,
     {
       params: {
         lang: useCookie("lang").value,
@@ -798,7 +760,7 @@ const { data: resEquipmentMethod } = await useAsyncData(
       {
         params: {
           is_publish: 1,
-          equipment_id: route.params.id,
+          equipment_id: 1,
           lang: useCookie("lang").value,
         },
       }
@@ -811,35 +773,6 @@ const { data: resEquipmentMethod } = await useAsyncData(
 equipmentMethod.value = resEquipmentMethod.value.data;
 
 // Method
-const onCheckBookingDate = async () => {
-  if (booking.value.booking_date == null) {
-    return;
-  }
-
-  await $fetch(`${runtimeConfig.public.apiBase}/booking/check-booking-date`, {
-    method: "get",
-    params: {
-      booking_date: dayjs(booking.value.booking_date).format("YYYY-MM-DD"),
-    },
-  })
-    .then((res) => {
-      if (res.msg == "success") {
-        let pt = selectOptions.value.period_times.map((x) => {
-          let pt_db = res.period_available.find((p) => {
-            return p.id == x.id;
-          });
-          x.available = pt_db.available;
-          return x;
-        });
-
-        selectOptions.value.period_times = [...pt];
-      } else {
-        throw new Error("ERROR");
-      }
-    })
-    .catch((error) => error.data);
-};
-
 const onSelectMethod = (it, event) => {
   if (event == true) {
     let quantity_input = document.getElementById(
@@ -929,8 +862,6 @@ onMounted(() => {
   booking.value.email = profile.value.email;
   booking.value.invoice_address = profile.value.invoice_address;
   booking.value.tax_id = profile.value.tax_id;
-
-  onCheckBookingDate();
 });
 
 const onConfirmSubmit = async () => {
@@ -972,7 +903,7 @@ const onSubmit = async () => {
         localStorage.setItem("added", 1);
         console.log("Book Success");
         router.push({
-          path: "/booking",
+          path: "/admin/booking",
         });
       } else {
         console.log("error");

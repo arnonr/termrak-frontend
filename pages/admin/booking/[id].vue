@@ -2,37 +2,16 @@
   <section class="breadcrumb__area include-bg pb-40 pt-30 grey-bg-4">
     <div class="container">
       <div class="row">
-        <div class="col-xxl-12" v-if="item != null">
+        <div class="col-xxl-12">
           <div class="breadcrumb__content p-relative z-index-1">
-            <div class="postbox__category">
-              <NuxtLink
-                :to="{
-                  path: '/sample-submission',
-                }"
-                style="padding: 10px"
-              >
-                {{ $t("Sample Submission") }}
-              </NuxtLink>
-            </div>
-
             <div class="breadcrumb__list">
-              <span class="breadcrumb-item-1">
-                <NuxtLink
-                  :to="{
-                    path: '/',
-                  }"
-                >
-                  {{ $t("Home") }}
-                </NuxtLink>
-              </span>
-              <span class="dvdr breadcrumb-item-1"
-                ><i class="fa-solid fa-circle-small"></i
-              ></span>
-              <span class="breadcrumb-item-1">
-                <NuxtLink href="/equipment-and-rate">
-                  {{ $t("Sample Submission") }}</NuxtLink
-                >
-              </span>
+              <span> ผู้ดูแลระบบ </span>
+              <span class="dvdr"><i class="fa-solid fa-circle-small"></i></span>
+              <span> ระบบจอง </span>
+              <span class="dvdr"><i class="fa-solid fa-circle-small"></i></span>
+              <span>
+                <NuxtLink href="/admin/booking"> รายการจอง </NuxtLink></span
+              >
             </div>
           </div>
         </div>
@@ -54,6 +33,47 @@
                       <!-- <h3>{{ item.equipment_department.name }}</h3> -->
                       <h3>{{ item.title_en }}</h3>
                       <h3>{{ item.title_th }}</h3>
+                    </div>
+
+                    <!-- Button -->
+                    <div class="text-end">
+                      <button
+                        class="btn btn-success text-uppercase"
+                        @click="
+                          () => {
+                            booking.status_id = {
+                              name_th: booking.booking_status_show.name,
+                              value: booking.booking_status_show.value,
+                            };
+                            modalForm.show();
+                          }
+                        "
+                      >
+                        <i class="fa-regular fa-edit"></i>
+                        <span class="pl-5">APPROVE</span>
+                      </button>
+
+                      <button
+                        class="btn btn-warning text-uppercase ml-5"
+                        @click="
+                          () => {
+                            router.push({
+                              path: '/admin/booking/edit/' + booking.id,
+                            });
+                          }
+                        "
+                      >
+                        <i class="fa-regular fa-edit"></i>
+                        <span class="pl-5">Edit</span>
+                      </button>
+
+                      <button
+                        class="btn btn-danger warning text-uppercase ml-5"
+                        @click="onConfirmDelete(booking.id)"
+                      >
+                        <i class="fa-regular fa-trash"></i>
+                        <span class="pl-5">Delete</span>
+                      </button>
                     </div>
 
                     <div class="mt-30 pl-10 pt-15 pb-10 bg-grey">
@@ -266,36 +286,6 @@
                                   }}</span>
                                   <hr class="hr-dotted" />
                                 </div>
-
-                                <div class="text-center">
-                                  <button
-                                    class="btn btn-warning text-uppercase"
-                                    @click="
-                                      () => {
-                                        router.push({
-                                          path: '/booking/edit/' + booking.id,
-                                        });
-                                      }
-                                    "
-                                    :disabled="
-                                      booking.status_id > 1 ? true : false
-                                    "
-                                  >
-                                    <i class="fa-regular fa-edit"></i>
-                                    <span class="pl-5">Edit</span>
-                                  </button>
-
-                                  <button
-                                    class="btn btn-danger warning text-uppercase ml-5"
-                                    :disabled="
-                                      booking.status_id > 1 ? true : false
-                                    "
-                                    @click="onConfirmDelete(booking.id)"
-                                  >
-                                    <i class="fa-regular fa-trash"></i>
-                                    <span class="pl-5">cancle</span>
-                                  </button>
-                                </div>
                               </div>
                             </div>
                           </div>
@@ -316,6 +306,75 @@
       </div>
     </div>
   </section>
+
+  <!-- Modal -->
+  <div
+    class="modal fade"
+    id="modal-form"
+    tabindex="-1"
+    aria-labelledby="modal-form"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="modal-form-label">
+            แบบฟอร์มอนุมัติการจอง
+          </h1>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
+        </div>
+        <div class="modal-body">
+          <form>
+            <div class="row">
+              <div class="col-12 mt-10">
+                <label for="recipient-name" class="col-form-label"
+                  ><span class="text-danger">*</span>สถานะการจอง :</label
+                >
+                <v-select
+                  label="name_th"
+                  placeholder="สถานะ"
+                  :options="selectOptions.booking_statuses"
+                  id="slt-is-publish"
+                  v-model="booking.status_id"
+                  class="form-control v-select-no-border"
+                  :clearable="true"
+                ></v-select>
+              </div>
+              <div class="col-12">
+                <label for="recipient-name" class="col-form-label"
+                  >หมายเหตุ :</label
+                >
+                <input
+                  type="text"
+                  class="form-control form-control-plaintext"
+                  id="txt-reject_comment"
+                  v-model="booking.reject_comment"
+                  placeholder="หมายเหตุ"
+                />
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button
+            type="button"
+            class="btn btn-secondary"
+            data-bs-dismiss="modal"
+          >
+            Close
+          </button>
+          <button type="button" class="btn btn-warning" @click="onApprove()">
+            Submit
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script setup>
@@ -323,8 +382,9 @@ import booking_data from "~~/mixins/bookingData";
 import dayjs from "dayjs";
 import "dayjs/locale/th";
 import buddhistEra from "dayjs/plugin/buddhistEra";
+import vSelect from "vue-select";
+import "vue-select/dist/vue-select.css";
 import Swal from "sweetalert2";
-
 import "@vuepic/vue-datepicker/dist/main.css";
 import Toastify from "toastify-js";
 import "toastify-js/src/toastify.css";
@@ -360,6 +420,7 @@ const booking = ref({
 const equipmentMethod = ref([]);
 const checkSummary = ref(false);
 const text_summary_error = ref("");
+let modalForm;
 
 const selectOptions = ref({
   member_statuses: booking_data.data().member_statuses,
@@ -441,6 +502,8 @@ const onLoadEquipmentBookingMethod = () => {
 };
 
 onMounted(() => {
+  modalForm = new bootstrap.Modal(document.getElementById("modal-form"));
+
   booking.value.equipment_method = [];
   if (booking.value.period_time) {
     let period_time = booking.value.period_time;
@@ -461,6 +524,7 @@ onMounted(() => {
         ? booking_status.name_en
         : booking_status.name_th,
     color: booking_status.color,
+    value: booking_status.value,
   };
 
   if (booking.value.member_status) {
@@ -492,19 +556,55 @@ const onConfirmDelete = async (id) => {
 
 const onDelete = async (id) => {
   await $fetch(`${runtimeConfig.public.apiBase}/booking/${id}`, {
-    method: "put",
-    body: {
-      status_id: 4,
-    },
+    method: "delete",
   })
     .then((res) => {
       if (res.msg == "success") {
-        localStorage.setItem("deleted", 1);
+        useToast("ลบรายการเสร็จสิ้น", "success");
         router.push({
-          path: "/booking",
+          path: "/admin/booking",
         });
       } else {
-        console.log("error");
+        throw new Error("ERROR");
+      }
+    })
+    .catch((error) => error.data);
+};
+
+const onApprove = async () => {
+  if (booking.value.status_id == null || booking.value.status_id.value == null) {
+    useToast("โปรดระบุข้อมูลสถานะ", "error");
+    return;
+  }
+
+  if (booking.value.reject_comment == "" || booking.value.reject_comment == null) {
+    if (booking.value.status_id.value == 3) {
+      useToast("โปรดระบุหมายเหตุ", "error");
+      return;
+    }
+  }
+
+  await $fetch(
+    `${runtimeConfig.public.apiBase}/booking/approve/${booking.value.id}`,
+    {
+      method: "put",
+      body: {
+        status_id: booking.value.status_id.value,
+        confirmed_date: dayjs().format("YYYY-MM-DD"),
+        reject_comment: booking.value.reject_comment,
+      },
+    }
+  )
+    .then((res) => {
+      if (res.msg == "success") {
+        useToast("อนุมัติรายการเสร็จสิ้น", "success");
+        modalForm.hide();
+        // refreshNuxtData("booking");
+        router.push({
+          path: "/admin/booking",
+        });
+      } else {
+        throw new Error("ERROR");
       }
     })
     .catch((error) => error.data);
@@ -514,6 +614,9 @@ useHead({
   title: item.value.title,
 });
 
+definePageMeta({
+  middleware: "auth",
+});
 </script>
 
 <style scoped>
