@@ -118,6 +118,10 @@
                                         v-model="booking.period_time"
                                         class="form-control v-select-no-border"
                                         :clearable="true"
+                                        :selectable="
+                                          (option) => option.available == true
+                                        "
+                                        item-value="id"
                                       ></v-select>
                                     </div>
                                   </div>
@@ -704,6 +708,7 @@ const booking = ref({
 const equipmentMethod = ref([]);
 const checkSummary = ref(false);
 const text_summary_error = ref("โปรดระบุข้อมูลให้ครบถ้วน");
+const mount = ref(false);
 
 const selectOptions = ref({
   member_statuses: booking_data.data().member_statuses,
@@ -775,6 +780,36 @@ const { data: resEquipmentMethod } = await useAsyncData(
 equipmentMethod.value = resEquipmentMethod.value.data;
 
 // Method
+const onCheckBookingDate = async () => {
+  if (booking.value.booking_date == null) {
+    return;
+  }
+
+  await $fetch(`${runtimeConfig.public.apiBase}/booking/check-booking-date`, {
+    method: "get",
+    params: {
+      not_id: booking.value.id,
+      booking_date: dayjs(booking.value.booking_date).format("YYYY-MM-DD"),
+    },
+  })
+    .then((res) => {
+      if (res.msg == "success") {
+        let pt = selectOptions.value.period_times.map((x) => {
+          let pt_db = res.period_available.find((p) => {
+            return p.id == x.id;
+          });
+          x.available = pt_db.available;
+          return x;
+        });
+
+        selectOptions.value.period_times = [...pt];
+      } else {
+        throw new Error("ERROR");
+      }
+    })
+    .catch((error) => error.data);
+};
+
 const onSelectMethod = (it, event) => {
   if (event == true) {
     let quantity_input = document.getElementById(
@@ -851,6 +886,10 @@ onMounted(() => {
   }
   if (booking.value.booking_date) {
     booking.value.booking_date = dayjs(booking.value.booking_date);
+    setTimeout(() => {
+      mount.value = true;
+      onCheckBookingDate();
+    }, 2000);
   }
 
   if (booking.value.member_status) {
@@ -1041,6 +1080,22 @@ const nextStep = async (step) => {
   // next step function to move to the next step
   formStep.value?.nextTab();
 };
+
+// watch
+watch(
+  () => booking.value.booking_date,
+  (new_value, old_value) => {
+    if (mount.value == true) {
+      if (new_value != old_value) {
+        if (old_value != null) {
+          booking.value.period_time = null;
+        }
+        onCheckBookingDate();
+      }
+    }
+  },
+  { deep: true }
+);
 
 useHead({
   title: item.value.title,

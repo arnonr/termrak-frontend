@@ -111,6 +111,10 @@
                                         "
                                         placeholder="ช่วงเวลา/Period Time"
                                         :options="selectOptions.period_times"
+                                        :selectable="
+                                          (option) => option.available == true
+                                        "
+                                        item-value="id"
                                         id="slt-period_time"
                                         v-model="booking.period_time"
                                         class="form-control v-select-no-border"
@@ -722,7 +726,17 @@ const format = (date) => {
   }
 };
 
-// Fetch
+// watch
+watch(
+  () => booking.value.booking_date,
+  (new_value, old_value) => {
+    if (new_value != old_value) {
+      booking.value.period_time = null;
+      onCheckBookingDate();
+    }
+  },
+  { deep: true }
+);
 
 // Function Fetch
 const { data: resProfile } = await useAsyncData("profile", async () => {
@@ -738,14 +752,11 @@ const { data: resProfile } = await useAsyncData("profile", async () => {
 profile.value = resProfile.value.data[0];
 
 const { data: res } = await useAsyncData("equipment", async () => {
-  let data = await $fetch(
-    `${runtimeConfig.public.apiBase}/equipment/${1}`,
-    {
-      params: {
-        lang: useCookie("lang").value,
-      },
-    }
-  );
+  let data = await $fetch(`${runtimeConfig.public.apiBase}/equipment/${1}`, {
+    params: {
+      lang: useCookie("lang").value,
+    },
+  });
 
   return data;
 });
@@ -773,6 +784,35 @@ const { data: resEquipmentMethod } = await useAsyncData(
 equipmentMethod.value = resEquipmentMethod.value.data;
 
 // Method
+const onCheckBookingDate = async () => {
+  if (booking.value.booking_date == null) {
+    return;
+  }
+
+  await $fetch(`${runtimeConfig.public.apiBase}/booking/check-booking-date`, {
+    method: "get",
+    params: {
+      booking_date: dayjs(booking.value.booking_date).format("YYYY-MM-DD"),
+    },
+  })
+    .then((res) => {
+      if (res.msg == "success") {
+        let pt = selectOptions.value.period_times.map((x) => {
+          let pt_db = res.period_available.find((p) => {
+            return p.id == x.id;
+          });
+          x.available = pt_db.available;
+          return x;
+        });
+
+        selectOptions.value.period_times = [...pt];
+      } else {
+        throw new Error("ERROR");
+      }
+    })
+    .catch((error) => error.data);
+};
+
 const onSelectMethod = (it, event) => {
   if (event == true) {
     let quantity_input = document.getElementById(
@@ -862,6 +902,8 @@ onMounted(() => {
   booking.value.email = profile.value.email;
   booking.value.invoice_address = profile.value.invoice_address;
   booking.value.tax_id = profile.value.tax_id;
+
+  onCheckBookingDate();
 });
 
 const onConfirmSubmit = async () => {
