@@ -36,22 +36,22 @@ const props = defineProps({
 const project = ref([
   {
     name: "Sample Submission",
-    project_file: "/images/iconwebtechnopark/icon_home1.png",
+    project_file: "images/iconwebtechnopark/icon_home1.png",
     url: "/sample-submission",
   },
   {
     name: "Equipment & Rate",
-    project_file: "/images/iconwebtechnopark/icon_home2.png",
+    project_file: "images/iconwebtechnopark/icon_home2.png",
     url: "/equipment-and-rate",
   },
   {
     name: "Direction",
-    project_file: "/images/iconwebtechnopark/icon_home3.png",
+    project_file: "images/iconwebtechnopark/icon_home3.png",
     url: "/direction",
   },
   {
     name: "Department Facility",
-    project_file: "/images/iconwebtechnopark/icon_home4.png",
+    project_file: "images/iconwebtechnopark/icon_home4.png",
     url: "/department-facility",
   },
 ]);
