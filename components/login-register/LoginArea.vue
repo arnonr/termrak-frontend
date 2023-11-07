@@ -7,8 +7,16 @@
           <div class="col-xl-6 col-lg-8 col-md-10">
             <div class="login__wrapper">
               <div class="login__top mb-30 text-center">
-                <h3 class="login__title">SICC</h3>
-                <p>Enter your email account.</p>
+                <img
+                  src="~/assets/img/iconwebtechnopark/logo-sicc.jpeg"
+                  alt="shape"
+                  style="width:60%"
+                />
+                <img
+                  class="offcanvas__shape-1"
+                  src="~/assets/img/iconwebtechnopark/bg-login.jpeg"
+                  alt="shape"
+                />
               </div>
               <div class="login__form">
                 <!-- form start -->

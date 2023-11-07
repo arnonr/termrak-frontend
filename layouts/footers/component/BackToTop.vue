@@ -1,17 +1,51 @@
 <template>
   <div class="back-to-top-wrapper scroll-top">
     <button id="back_to_top" type="button" class="back-to-top-btn">
-      <svg width="12" height="7" viewBox="0 0 12 7" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M11 6L6 1L1 6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+      <svg
+        width="12"
+        height="7"
+        viewBox="0 0 12 7"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M11 6L6 1L1 6"
+          stroke="currentColor"
+          strokeWidth="1.5"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
       </svg>
     </button>
   </div>
+
+  <div class="admin-wrapper">
+    <button
+      id="back_to_top"
+      type="button"
+      class="admin-btn"
+      @click="handleAdminOpenSidebar"
+    >
+      <i class="fa fa-list"></i>
+    </button>
+  </div>
+
+  <!-- off canvas start -->
+  <off-canvas-five ref="off_canvas" />
+  <!-- off canvas end -->
 </template>
 
 <script>
+import OffCanvasFive from "~~/components/common/off-canvas/OffCanvasSix.vue";
 export default {
+  components: { OffCanvasFive },
+  methods: {
+    handleAdminOpenSidebar() {
+      this.$refs.off_canvas.openOffcanvas();
+    },
+  },
   mounted() {
-    const result = document.querySelector('.scroll-top');
+    const result = document.querySelector(".scroll-top");
     if (result) {
       document.addEventListener("scroll", () => {
         if (window.scrollY > 200) {
