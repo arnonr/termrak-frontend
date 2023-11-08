@@ -13,7 +13,6 @@
                     class="img-header-logo"
                     alt=""
                   />
-
                   <!-- <img
                     src="~/assets/img/iconwebtechnopark/logo-sicc-dark.png"
                     class="img-header-logo"
@@ -124,6 +123,7 @@
                     @click="
                       () => {
                         $router.push({ path: '/login' });
+                        // $router.push({ path: '/login' });
                       }
                     "
                   >
