@@ -123,7 +123,7 @@
                     v-if="!authenticated"
                     @click="
                       () => {
-                        router.push({ path: '/login' });
+                        $router.push({ path: '/login' });
                       }
                     "
                   >
@@ -200,7 +200,7 @@
                       <li>
                         <a
                           class="dropdown-item item-link"
-                          @click="router.push({ path: '/booking' })"
+                          @click="$router.push({ path: '/booking' })"
                           >รายการจอง</a
                         >
                       </li>
@@ -208,7 +208,7 @@
                         <a
                           class="dropdown-item item-link"
                           @click="
-                            router.push({
+                            $router.push({
                               path: '/profile/' + useCookie('user').value.id,
                             })
                           "
@@ -338,7 +338,8 @@ import { useAuthStore } from "~/store/auth"; // import the auth store we just cr
 import { storeToRefs } from "pinia"; // import storeToRefs helper hook from pinia
 const { authenticated } = storeToRefs(useAuthStore()); // make authenticated state reactive with storeToRefs
 const { logUserOut } = useAuthStore();
-const router = useRouter();
+
+// const router = useRouter();
 
 export default {
   components: { menus, OffCanvasTwo, Language },
@@ -367,6 +368,7 @@ export default {
       }
     },
     logout() {
+      const router = useRouter();
       logUserOut();
       useToast("ออกจากระบบเสร็จสิ้น", "success");
       router.push("/");
@@ -374,6 +376,7 @@ export default {
     },
   },
   mounted() {
+    console.log(useSkin().value);
     window.addEventListener("scroll", this.handleSticky);
   },
 };
