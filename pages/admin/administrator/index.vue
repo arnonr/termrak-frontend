@@ -77,7 +77,7 @@
           class="btn btn-warning"
           @click="
             () => {
-              router.push({ path: '/admin/administrator/add' });
+             $router.push({ path: '/admin/administrator/add' });
             }
           "
         >

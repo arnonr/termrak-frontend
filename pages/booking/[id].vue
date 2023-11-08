@@ -272,7 +272,7 @@
                                     class="btn btn-warning text-uppercase"
                                     @click="
                                       () => {
-                                        router.push({
+                                        $router.push({
                                           path: '/booking/edit/' + booking.id,
                                         });
                                       }

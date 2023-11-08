@@ -110,22 +110,21 @@
         </div>
 
         <div class="col-12 col-lg-4 mt-1">
-            <VueDatePicker
-              v-model="search.booking_date"
-              :enable-time-picker="false"
-              placeholder="วันที่จอง"
-              locale="th"
-              auto-apply
-              :format="format"
-            >
-              <template #year-overlay-value="{ text }">
-                {{ parseInt(text) + 543 }}
-              </template>
-              <template #year="{ value }">
-                {{ value + 543 }}
-              </template>
-            </VueDatePicker>
-        
+          <VueDatePicker
+            v-model="search.booking_date"
+            :enable-time-picker="false"
+            placeholder="วันที่จอง"
+            locale="th"
+            auto-apply
+            :format="format"
+          >
+            <template #year-overlay-value="{ text }">
+              {{ parseInt(text) + 543 }}
+            </template>
+            <template #year="{ value }">
+              {{ value + 543 }}
+            </template>
+          </VueDatePicker>
         </div>
 
         <div class="col-12 col-lg-4">
@@ -156,7 +155,7 @@
           class="btn btn-warning"
           @click="
             () => {
-              router.push({ path: '/admin/booking/add' });
+             $router.push({ path: '/admin/booking/add' });
             }
           "
         >
@@ -260,7 +259,7 @@ const currentPage = ref(1);
 const totalPage = ref(1);
 const totalItems = ref(0);
 const search = ref({
-    booking_date: ""
+  booking_date: "",
 });
 
 const selectOptions = ref({
@@ -361,7 +360,7 @@ const fetchItems = async () => {
         ? undefined
         : search.value.member_status.value,
     booking_date:
-    search.value.booking_date != "" && search.value.booking_date != null
+      search.value.booking_date != "" && search.value.booking_date != null
         ? dayjs(search.value.booking_date).format("YYYY-MM-DD")
         : undefined,
     perPage: perPage.value,

@@ -57,7 +57,7 @@
                         class="btn btn-warning text-uppercase ml-5"
                         @click="
                           () => {
-                            router.push({
+                            $router.push({
                               path: '/admin/booking/edit/' + booking.id,
                             });
                           }

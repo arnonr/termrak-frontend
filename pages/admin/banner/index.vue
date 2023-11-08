@@ -54,7 +54,7 @@
           class="btn btn-warning"
           @click="
             () => {
-              router.push({ path: '/admin/banner/add' });
+              $router.push({ path: '/admin/banner/add' });
             }
           "
         >
@@ -138,7 +138,6 @@ import "vue-select/dist/vue-select.css";
 import Swal from "sweetalert2";
 import Toastify from "toastify-js";
 import "toastify-js/src/toastify.css";
-
 
 // import tableItem from "~/components/list/TableItem.vue";
 import BlogPagination from "~/components/common/pagination/BlogPagination.vue";

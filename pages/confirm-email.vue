@@ -17,7 +17,7 @@
                     class="tp-btn w-100"
                     @click="
                       () => {
-                        router.push({ path: '/login' });
+                        $router.push({ path: '/login' });
                       }
                     "
                   >
