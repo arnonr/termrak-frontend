@@ -113,7 +113,7 @@
           class="btn btn-warning"
           @click="
             () => {
-              this.$router.push({ path: '/admin/user/add' });
+              router.push({ path: '/admin/user/add' });
             }
           "
         >

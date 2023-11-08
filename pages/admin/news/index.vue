@@ -80,7 +80,7 @@
           class="btn btn-warning"
           @click="
             () => {
-              this.$router.push({ path: '/admin/news/add' });
+              router.push({ path: '/admin/news/add' });
             }
           "
         >

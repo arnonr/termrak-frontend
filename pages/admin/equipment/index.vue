@@ -78,7 +78,7 @@
           class="btn btn-warning"
           @click="
             () => {
-              this.$router.push({ path: '/admin/equipment/add' });
+              router.push({ path: '/admin/equipment/add' });
             }
           "
         >
@@ -185,6 +185,7 @@ const totalPage = ref(1);
 const totalItems = ref(0);
 const search = ref({});
 const type_submit = ref("");
+const router = useRouter();
 
 const selectOptions = ref({
   perPage: [

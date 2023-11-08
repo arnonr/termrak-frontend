@@ -64,7 +64,7 @@
           class="btn btn-warning"
           @click="
             () => {
-              this.$router.push({ path: '/admin/about-us/add' });
+             router.push({ path: '/admin/about-us/add' });
             }
           "
         >

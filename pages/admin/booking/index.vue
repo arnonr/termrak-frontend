@@ -156,7 +156,7 @@
           class="btn btn-warning"
           @click="
             () => {
-              this.$router.push({ path: '/admin/booking/add' });
+              router.push({ path: '/admin/booking/add' });
             }
           "
         >
@@ -252,6 +252,7 @@ import booking_data from "~~/mixins/bookingData";
 dayjs.extend(buddhistEra);
 // const route = useRoute();
 // const router = useRouter();
+const router = useRouter();
 const runtimeConfig = useRuntimeConfig();
 const items = ref([]);
 const perPage = ref(20);

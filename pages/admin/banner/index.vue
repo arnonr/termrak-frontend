@@ -54,7 +54,7 @@
           class="btn btn-warning"
           @click="
             () => {
-              this.$router.push({ path: '/admin/banner/add' });
+              router.push({ path: '/admin/banner/add' });
             }
           "
         >
@@ -139,6 +139,7 @@ import Swal from "sweetalert2";
 import Toastify from "toastify-js";
 import "toastify-js/src/toastify.css";
 
+
 // import tableItem from "~/components/list/TableItem.vue";
 import BlogPagination from "~/components/common/pagination/BlogPagination.vue";
 import booking_data from "~~/mixins/bookingData";
@@ -154,6 +155,7 @@ const currentPage = ref(1);
 const totalPage = ref(1);
 const totalItems = ref(0);
 const search = ref({});
+const router = useRouter();
 
 const selectOptions = ref({
   perPage: [
