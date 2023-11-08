@@ -33,7 +33,8 @@ export const useAuthStore = defineStore("auth", {
           email: data?.value?.email,
           firstname: data?.value?.profile.firstname,
           surname: data?.value?.profile.surname,
-          group_id: data?.value?.profile.group_id,
+          group_id: data?.value?.group_id,
+          
         };
 
         this.authenticated = true; // set authenticated  state value to true
