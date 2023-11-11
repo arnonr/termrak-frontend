@@ -108,22 +108,22 @@ const project = ref([
   {
     name: "บริการ 1",
     project_file: "images/iconwebtechnopark/icon_home1.png",
-    url: "/sample-submission",
+    url: "/",
   },
   {
     name: "บริการ 2",
     project_file: "images/iconwebtechnopark/icon_home2.png",
-    url: "/equipment-and-rate",
+    url: "/",
   },
   {
     name: "บริการ 3",
     project_file: "images/iconwebtechnopark/icon_home3.png",
-    url: "/direction",
+    url: "/",
   },
   {
     name: "บริการ 4",
     project_file: "images/iconwebtechnopark/icon_home4.png",
-    url: "/department-facility",
+    url: "/",
   },
 ]);
 </script>
