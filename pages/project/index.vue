@@ -2,7 +2,7 @@
   <section class="portfolio__area pt-40 pb-40">
     <div class="container">
       <div class="row">
-        <div class="col-md-4 mb-20">
+        <!-- <div class="col-md-4 mb-20">
           <div class="" v-if="selectOptions.news_types.length != 0">
             <v-select
               label="title"
@@ -13,7 +13,7 @@
               :clearable="true"
             ></v-select>
           </div>
-        </div>
+        </div> -->
 
         <div class="col-md-2 mb-20">
           <div class="" v-if="selectOptions.years.length != 0">
@@ -60,7 +60,7 @@
           <div class="row">
             <div class="col-xl-12">
               <div class="blog__list-item-wrapper">
-                <NewsListItem
+                <!-- <NewsListItem
                   v-for="(it, i) in items"
                   :key="i"
                   :item="{
@@ -71,7 +71,22 @@
                     created: it.created_news,
                     type_name: it.news_type.name,
                   }"
-                />
+                /> -->
+
+                <NewsBlogItem
+                  v-for="(it, i) in items"
+                  class="col-md-3"
+                  :key="i"
+                  :item="{
+                    link: 'project/',
+                    id: it.id,
+                    title: it.title,
+                    file: it.news_file,
+                    created: it.created_news,
+                    type_name: it.news_type.name,
+                  }"
+                /> 
+                
               </div>
             </div>
             <div class="col-xxl-12">
@@ -97,6 +112,7 @@ import vSelect from "vue-select";
 import "vue-select/dist/vue-select.css";
 // Import
 import NewsListItem from "~/components/list/ListItem.vue";
+import NewsBlogItem from "~/components/list/GridItem.vue";
 import BlogPagination from "~/components/common/pagination/BlogPagination.vue";
 // Variable
 const route = useRoute();
@@ -160,30 +176,18 @@ const { data: resNewsType } = await useAsyncData("newsType", async () => {
   return data;
 });
 
-selectOptions.value.news_types = resNewsType.value.data
-  .filter((e) => {
-    return e.id != 1;
-  })
-  .map((e) => {
-    return { title: e.name, value: e.id };
-  });
+selectOptions.value.news_types = resNewsType.value.data.map((e) => {
+  return { title: e.name, value: e.id };
+});
 
 if (route.query.page) {
   currentPage.value = route.query.page;
 }
 
-if (route.query.news_type_id) {
-  search.value.news_type = selectOptions.value.news_types.find((e) => {
-    return e.value == route.query.news_type_id;
-  });
-}
-
 const { data: res } = await useAsyncData("news", async () => {
   let params = {
     ...search.value,
-    not_news_type_id: 1,
-    news_type_id:
-      search.value.news_type == null ? undefined : search.value.news_type.value,
+    news_type_id: 1,
     created_year:
       search.value.created_year == null
         ? undefined
@@ -214,7 +218,7 @@ watch(
   [currentPage, search],
   () => {
     router.replace({
-      name: "news",
+      name: "project",
       query: { page: currentPage.value },
     });
     refreshNuxtData("news");

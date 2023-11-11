@@ -1,9 +1,9 @@
 <template>
-  <section class="portfolio__area pt-40 pb-40">
+  <section class="portfolio__area pt-40 pb-40 bg-primary">
     <div class="container">
       <div class="row">
         <div class="col-xxl-12 mb-20">
-          <h3>{{ $t("News") }}</h3>
+          <h3>{{ $t("Projects & News") }}</h3>
         </div>
         <div class="col-xxl-12" v-if="newsType.length != 0">
           <div class="portfolio__masonary-btn-2 text-start mb-50">
@@ -15,7 +15,9 @@
                 v-for="(nt, i) in newsType"
                 :key="i"
                 @click="onChangeNewsType(nt.id, nt.category)"
-                :class="`${nt.category === activeCategory ? 'active' : ''} text-uppercase`"
+                :class="`${
+                  nt.category === activeCategory ? 'active' : ''
+                } text-uppercase`"
               >
                 {{ nt.name }}
               </button>
@@ -40,16 +42,6 @@
           />
         </div>
       </div>
-
-      <div class="div-btn-news">
-        <div class="col">
-          <div class="tp-button-demo text-end">
-            <NuxtLink to="/news" class="tp-btn-border-brown text-uppercase">{{
-              $t("All News")
-            }}</NuxtLink>
-          </div>
-        </div>
-      </div>
     </div>
   </section>
 </template>
@@ -61,10 +53,11 @@ const runtimeConfig = useRuntimeConfig();
 
 const items = ref([]);
 const newsType = ref([]);
-const activeCategory = ref("news-all");
+const activeCategory =
+  useCookie("lang").value == "th" ? ref("news-โครงการ") : ref("Project");
 
 const search = ref({
-  news_type_id: undefined,
+  news_type_id: 1,
   is_publish: 1,
 });
 
@@ -81,11 +74,11 @@ const { data: resNewsType } = await useAsyncData("newsType", async () => {
     return e;
   });
 
-  d.unshift({
-    id: null,
-    name: data.lang == "th" ? "ข่าวทั้งหมด" : "All News",
-    category: "news-all",
-  });
+  //   d.unshift({
+  //     id: null,
+  //     name: data.lang == "th" ? "ข่าวทั้งหมด" : "All News",
+  //     category: "news-all",
+  //   });
 
   return { ...data, data: d };
 });
@@ -124,7 +117,7 @@ const onChangeNewsType = async (id, category) => {
   await refreshNuxtData("news");
   activeCategory.value = category;
   items.value = res.value.data;
-//   items.value = res.value.data;
+  //   items.value = res.value.data;
 };
 
 // watch([res], () => {
@@ -139,5 +132,10 @@ watch([resNewsType], () => {
 <style scoped>
 .tp-btn-border-brown {
   border-radius: 2em;
+}
+
+.portfolio__masonary-btn-2 button:hover,
+.portfolio__masonary-btn-2 button.active {
+  color: #fff;
 }
 </style>

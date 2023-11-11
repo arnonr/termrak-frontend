@@ -11,16 +11,18 @@
               <div class="footer__widget footer__widget-5 mb-50 footer-col-5-1">
                 <div class="footer__widget-content">
                   <div class="footer__info">
-                    <h4>ศูนย์เครื่องมือวิทยาศาสตร์และคอมพิวเตอร์สมรรถนะสูง</h4>
-                    <h4>คณะวิทยาศาสตร์ประยุกต์</h4>
+                    <h4>
+                      ศูนย์ปฏิบัติการเทคโนโลยีอิเล็กทรอนิกส์อัจฉริยะและนวัตกรรมดิจิทัล
+                    </h4>
+                    <h4>อุทยานเทคโนโลยี มจพ.</h4>
 
                     <p style="font-size: 1em">
                       <span>
-                        Scientific Instrument and High Performance Computing
-                        Center : SICC
+                        Technology Center For Smart Electronic and Digital
+                        Innovation
                       </span>
                       <br />
-                      <span>Faculty of Applied Science</span>
+                      <span>Technopark KMUTNB</span>
                     </p>
 
                     <p style="font-size: 1em">
@@ -35,7 +37,7 @@
                       <span>แฟกซ์ 02-587-8259</span>
                     </p>
 
-                    <a
+                    <!-- <a
                       href="https://www.facebook.com/profile.php?id=100066870041599"
                       target="_blank"
                     >
@@ -49,7 +51,7 @@
                           viewBox="0,0,256,256"
                         >
                           <g
-                            fill="#ffcb05"
+                            fill="#56cbff"
                             fill-rule="nonzero"
                             stroke="none"
                             stroke-width="1"
@@ -82,7 +84,7 @@
                       >
                         ศูนย์เครื่องมือวิทยาศาสตร์และคอมพิวเตอร์สมรรถนะสูง-SICC
                       </div>
-                    </a>
+                    </a> -->
                   </div>
                 </div>
               </div>
@@ -93,10 +95,11 @@
                 <div class="footer__widget-content">
                   <div class="footer__info">
                     <iframe
-                      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3874.2883104876155!2d100.51270202510852!3d13.821718495670929!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x30e29b9c7c312857%3A0x5d07935904fe2fb8!2sFaculty%20of%20Applied%20Sciences%20(KMUTNB)!5e0!3m2!1sen!2sth!4v1681663973388!5m2!1sen!2sth"
+                      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1085.1689117371757!2d100.51197210526158!3d13.823616651441048!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x30e29b9fec733295%3A0xabfe9c6fbd6d88d7!2z4Lit4Li44LiX4Lii4Liy4LiZ4LmA4LiX4LiE4LmC4LiZ4LmC4Lil4Lii4Li1IOC4oeC4q-C4suC4p-C4tOC4l-C4ouC4suC4peC4seC4ouC5gOC4l-C4hOC5guC4meC5guC4peC4ouC4teC4nuC4o-C4sOC4iOC4reC4oeC5gOC4geC4peC5ieC4suC4nuC4o-C4sOC4meC4hOC4o-C5gOC4q-C4meC4t-C4rSAoS01VVE5CIFRFQ0hOTyBQQVJLKQ!5e0!3m2!1sen!2sth!4v1699603171939!5m2!1sen!2sth"
                       width="100%"
                       height="300"
                       style="border: 0"
+                      allowfullscreen=""
                       loading="lazy"
                       referrerpolicy="no-referrer-when-downgrade"
                     ></iframe>
@@ -114,8 +117,7 @@
               <div class="footer__copyright-5">
                 <p>
                   © {{ new Date().getFullYear() + 543 }}
-                  ศูนย์เครื่องมือวิทยาศาสตร์และคอมพิวเตอร์สมรรถนะสูง
-                  คณะวิทยาศาสตร์ประยุกต์
+                  ศูนย์ปฏิบัติการเทคโนโลยีอิเล็กทรอนิกส์อัจฉริยะและนวัตกรรมดิจิทัล
                 </p>
               </div>
             </div>
@@ -166,11 +168,11 @@ export default {
 }
 
 .footer-col-5-3 {
-    padding-left: 0px;
-    padding-right: 100px;
+  padding-left: 0px;
+  padding-right: 100px;
 }
 /* .bg-primary{
-    background-color: #ffcb05;
+    background-color: #56cbff;
 } */
 
 /* .footer__info-icon span {

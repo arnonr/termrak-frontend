@@ -7,14 +7,14 @@
 <script setup>
 import Toastify from "toastify-js";
 import "toastify-js/src/toastify.css";
+import SalScrollAnimationMixin from "~/mixins/SalScrollAnimationMixin";
 
 useHead({
-  title:
-    "ศูนย์เครื่องมือวิทยาศาสตร์และคอมพิวเตอร์สมรรถนะสูง คณะวิทยาศาสตร์ประยุกต์",
+  title: "ศูนย์ปฏิบัติการเทคโนโลยีอิเล็กทรอนิกส์อัจฉริยะและนวัตกรรมดิจิทัล",
   meta: [
     {
-      name: " Scientific Instrument and High Performance Computing Center : SICC, Faculty of Applied Science",
-      content: "Faculty of Applied Science",
+      name: "Technology Center For Smart Electronic and Digital Innovation",
+      content: "",
     },
   ],
 });
@@ -24,14 +24,16 @@ if (process.client) {
     useToast("เข้าสู่ระบบเสร็จสิ้น", "success");
     localStorage.removeItem("login");
   }
-
-  //   if (localStorage.getItem("logout")) {
-  //     useToast("ออกจากระบบเสร็จสิ้น", "success");
-  //     localStorage.removeItem("logout");
-  //   }
 }
 
 definePageMeta({
   middleware: "auth",
 });
+</script>
+
+<script>
+
+export default {
+  mixins: [SalScrollAnimationMixin],
+};
 </script>

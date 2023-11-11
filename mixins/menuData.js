@@ -16,23 +16,29 @@ export default {
         },
         {
           id: 3,
-          title: "News & Annoucements",
+          title: "Projects",
+          hasDropdown: false,
+          link: "/project",
+        },
+        {
+          id: 4,
+          title: "News",
           hasDropdown: false,
           link: "/news",
         },
         {
-          id: 4,
+          id: 5,
           title: "About Us",
           hasDropdown: true,
           link: "#",
           submenus: [
             { title: "History", link: "/about-us/1" },
-            { title: "Organization", link: "/about-us/2" },
+            { title: "Goal", link: "/about-us/2" },
             { title: "Administrator", link: "/administrator" },
           ],
         },
         {
-          id: 5,
+          id: 6,
           hasDropdown: false,
           title: "Contact Us",
           link: "/contact-us",

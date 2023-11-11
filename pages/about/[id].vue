@@ -37,12 +37,11 @@
               <div class="row">
                 <div
                   class="col-sm-12 col-md-12 col-12"
-                  style="border-left: 0.7em solid rgb(255, 203, 5)"
+                  style="border-left: 0.7em solid #56cbff"
                 >
                   <h2>{{ item.title }}</h2>
-                  <h2 style="color: rgb(255, 203, 5)">
-                    {{ $t("Scientific Instrument") }} <br />
-                    {{ $t("and High Performance Computing Center") }} 
+                  <h2 style="color: #56cbff">
+                    {{ $t("Technology Center For Smart Electronic and Digital Innovation") }}
                   </h2>
                 </div>
               </div>
@@ -97,7 +96,7 @@ useHead({
     item.value.title +
     " " +
     t(
-      "Scientific Instrument and High Performance Computing Center : SICC, Faculty of Applied Science"
+      "Technology Center For Smart Electronic and Digital Innovation"
     ),
 });
 </script>

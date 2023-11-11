@@ -4,12 +4,12 @@
       <div class="header__top-4 header__padding-4">
         <div class="container">
           <div class="row align-items-center">
-            <!-- Logo SICC -->
+            <!-- Logo TCSD -->
             <div class="col-xxl-8 col-xl-8 col-lg-6 col-md-5 col-5">
               <div class="logo text-start">
                 <NuxtLink to="/">
                   <img
-                    src="~/assets/img/iconwebtechnopark/logo-sicc.png"
+                    src="~/assets/img/iconwebtechnopark/logo-tcsd.png"
                     class="img-header-logo"
                     alt=""
                   />
@@ -22,12 +22,10 @@
                 </NuxtLink>
 
                 <h5 class="d-none d-xl-block d-lg-block text-color-secondary">
-                  ศูนย์เครื่องมือวิทยาศาสตร์และคอมพิวเตอร์สมรรถนะสูง
-                  คณะวิทยาศาสตร์ประยุกต์
+                  ศูนย์ปฏิบัติการเทคโนโลยีอิเล็กทรอนิกส์อัจฉริยะและนวัตกรรมดิจิทัล
                 </h5>
                 <h6 class="d-none d-xl-block d-lg-block text-color-secondary">
-                  Scientific Instrument and High Performance Computing Center :
-                  SICC, Faculty of Applied Science
+                  Technology Center For Smart Electronic and Digital Innovation
                 </h6>
               </div>
             </div>
@@ -38,7 +36,7 @@
                 class="header__top-right-4 d-none d-lg-flex justify-content-center"
               >
                 <img
-                  src="~/assets/img/iconwebtechnopark/logo-sci.jpeg"
+                  src="~/assets/img/iconwebtechnopark/logo-tp.png"
                   class="img-header-logo-sci"
                   alt=""
                   style="margin-top: 0px"
@@ -259,7 +257,7 @@
                 <div class="logo">
                   <NuxtLink to="/">
                     <img
-                      src="~/assets/img/iconwebtechnopark/logo-sicc.png"
+                      src="~/assets/img/iconwebtechnopark/logo-tcsd.png"
                       style="width: 70%"
                       alt=""
                     />
@@ -383,7 +381,7 @@ export default {
 </script>
 <style scoped>
 .header__bottom-4 {
-  background-color: #ffcb05;
+  background-color: #56cbff;
   line-height: 2.5em;
   border-top: 4px solid #000;
 }
@@ -413,8 +411,8 @@ export default {
 
 .img-header-logo-sci {
   margin-top: 0px;
-  margin-bottom: 10px;
-  width: 23%;
+  margin-bottom: 0px;
+  width: 40%;
 }
 
 .mr-0-5 {

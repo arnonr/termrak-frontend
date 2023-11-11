@@ -33,12 +33,11 @@
               <div class="row mb-40">
                 <div
                   class="col-sm-12 col-md-12 col-12"
-                  style="border-left: 0.7em solid rgb(255, 203, 5)"
+                  style="border-left: 0.7em solid #56cbff"
                 >
                   <h2>{{ $t("Administrator") }}</h2>
-                  <h2 style="color: rgb(255, 203, 5)">
-                    {{ $t("Scientific Instrument") }} <br />
-                    {{ $t("and High Performance Computing Center") }}
+                  <h2 style="color: #56cbff">
+                    {{ $t("Technology Center For Smart Electronic and Digital Innovation") }} <br />
                   </h2>
                 </div>
               </div>
@@ -66,7 +65,7 @@
                               :src="ad.team_file"
                               height="320"
                               width="250"
-                              style="border: solid 0.5em #ffcb05"
+                              style="border: solid 0.5em #56cbff"
                               class="text-center mb-20"
                             />
                           </div>
@@ -203,7 +202,7 @@ watchEffect(() => {
 
 useHead({
   title:
-    "บุคลากร ศูนย์เครื่องมือวิทยาศาสตร์และคอมพิวเตอร์สมรรถนะสูง คณะวิทยาศาสตร์ประยุกต์",
+    "บุคลากร ศูนย์ปฏิบัติการเทคโนโลยีอิเล็กทรอนิกส์อัจฉริยะและนวัตกรรมดิจิทัล",
 });
 </script>
 

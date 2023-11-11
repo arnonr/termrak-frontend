@@ -51,7 +51,7 @@
                           <form-wizard
                             hide-buttons
                             disable-back
-                            color="#ffcb05"
+                            color="#56cbff"
                             ref="formStep"
                             finishButtonText="SUBMIT ORDER"
                           >

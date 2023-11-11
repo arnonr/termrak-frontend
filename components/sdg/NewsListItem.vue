@@ -82,6 +82,6 @@ export default {
 }
 
 .blog__title-10 {
-  color: #ffcb05;
+  color: #56cbff;
 }
 </style>

@@ -1,9 +1,9 @@
 .swiper-pagination-bullet-active {
-    background-color: #ffcb05 !important;
+    background-color: #56cbff !important;
 }
 
 .text-color-primary {
-    color: #ffcb05
+    color: #56cbff
 }
 
 .item-link {
@@ -19,7 +19,7 @@
 }
 
 .bg-primary {
-    background-color: #ffcb05 !important;
+    background-color: #56cbff !important;
 }
 
 .v-select-no-border {
@@ -31,7 +31,7 @@
     font-size: 14px;
     font-weight: 700;
     color: #fff;
-    background: #ffcb05;
+    background: #56cbff;
     text-align: center;
     font-family: var(--tp-ff-space);
     padding: 10px 31px;
@@ -110,7 +110,7 @@ textarea {
 }
 
 .swiper-button-prev {
-    background: rgb(255, 203, 5);
+    background: #56cbff;
     inline-size: 3.2em;
     margin-inline-start: -2px;
     transform: scale(0.7);
@@ -127,7 +127,7 @@ textarea {
 }
 
 .swiper-button-next {
-    background: rgb(255, 203, 5);
+    background: #56cbff;
     inline-size: 3.2em;
     margin-inline-start: -2px;
     transform: scale(0.7);

@@ -164,7 +164,7 @@ export default {
   color: var(--tp-text-body);
 } */
 .header__lang-selected-lang:hover {
-  color: #ffcb05;
+  color: #56cbff;
 }
 
 .header__lang-list {

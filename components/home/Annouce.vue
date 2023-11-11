@@ -75,17 +75,17 @@ items.value = res.value.data;
 }
 
 .text-custom-primary {
-  color: #ffcb05;
+  color: #56cbff;
 }
 
 .btn-primary {
-  background-color: #ffcb05;
-  /* color:#ffcb05     */
+  background-color: #56cbff;
+  /* color:#56cbff     */
 }
 
 .btn-primary {
-  background-color: #ffcb05;
-  border-color: #ffcb05;
+  background-color: #56cbff;
+  border-color: #56cbff;
 }
 
 .btn-primary:hover {

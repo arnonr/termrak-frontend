@@ -41,7 +41,7 @@
           <div class="offcanvas__logo logo">
             <nuxt-link href="/">
               <img
-                src="~/assets/img/iconwebtechnopark/logo-sicc.png"
+                src="~/assets/img/iconwebtechnopark/logo-tcsd.png"
                 style="width: 20%"
                 alt="logo"
               />
@@ -49,7 +49,7 @@
           </div>
         </div>
         <div class="offcanvas__inner mb-80 d-none d-lg-block">
-          <h4>SICC</h4>
+          <h4>TCSD</h4>
           <p>KMUTNB</p>
           <img src="~/assets/img/shape/offcanvas-img-1.png" alt="" />
         </div>
@@ -117,6 +117,6 @@ export default {
 
 <style scoped>
 .offcanvas__area-4 {
-  background-color: #ffcb05;
+  background-color: #56cbff;
 }
 </style>

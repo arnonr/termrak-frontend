@@ -27,7 +27,7 @@
           <div class="offcanvas__logo logo">
             <nuxt-link href="/">
               <img
-                src="~/assets/img/iconwebtechnopark/logo-sicc.png"
+                src="~/assets/img/iconwebtechnopark/logo-tcsd.png"
                 alt="logo"
                 style="width: 50%"
               />

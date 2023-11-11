@@ -577,7 +577,7 @@ useHead({
 
 <style scoped>
 .accordion-header {
-  background-color: #ffcb05;
+  background-color: #56cbff;
   border-radius: 1.5em;
 }
 
