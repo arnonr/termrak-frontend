@@ -38,7 +38,7 @@
               data-sal-duration="1000"
             >
               <div class="tp-thumb-overlay wow"></div>
-              <img src="~/assets/img/about/about-img-1.jpg" alt="" />
+              <img src="~/assets/img/about/about-img-2.jpg" alt="" />
             </div>
             <div class="about__thumb-text">
               <h3 data-text="About">About</h3>
