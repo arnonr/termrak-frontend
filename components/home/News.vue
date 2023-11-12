@@ -127,6 +127,14 @@ const onChangeNewsType = async (id, category) => {
 watch([resNewsType], () => {
   newsType.value = resNewsType.value.data;
 });
+
+onMounted(() => {
+  if (res.value != null) {
+    items.value = res.value.data;
+  } else {
+    items.value = [];
+  }
+});
 </script>
 
 <style scoped>

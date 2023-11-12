@@ -4,4 +4,5 @@ Develop
 
 
 การ deploy
-- 
+- แก้ .env
+- NUXT_APP_BASE_URL='/tcsd/'
