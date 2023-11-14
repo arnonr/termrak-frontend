@@ -163,7 +163,7 @@
   </section>
 
   <div id="print">
-    <div style="width: 200px !important;font-family: 'Courier New', Courier, monospace;" class="fw-bold">
+    <div style="width: 200px !important; font-family: Arial, Helvetica, sans-serif">
       <div class="text-center">ใบเสร็จ</div>
       <div class="text-center">
         <span>เติมรัก รับส่งพัสดุ ท่าอิฐ</span><br />
