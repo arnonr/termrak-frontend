@@ -1,5 +1,5 @@
 <template>
-  <header>
+  <header class="no-print">
     <div class="header__area">
       <div class="header__top-4 header__padding-4">
         <div class="container">

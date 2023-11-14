@@ -160,6 +160,33 @@ export default {
           color: "success",
         },
       ],
+      post_companies: [
+        {
+          id: 1,
+          value: 1,
+          name: "Kerry",
+        },
+        {
+          id: 2,
+          value: 2,
+          name: "Ninja",
+        },
+        {
+            id: 3,
+            value: 3,
+            name: "DHL",
+          },
+        {
+          id: 4,
+          value: 4,
+          name: "Flash",
+        },
+        {
+          id: 5,
+          value: 5,
+          name: "EMS",
+        },
+      ],
       //   froala_config: {
       //     height: 300,
       //     // inlineMode: false,

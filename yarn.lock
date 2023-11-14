@@ -5644,6 +5644,11 @@ pretty-bytes@^6.0.0:
   resolved "https://registry.npmjs.org/pretty-bytes/-/pretty-bytes-6.0.0.tgz"
   integrity sha512-6UqkYefdogmzqAZWzJ7laYeJnaXDy2/J+ZqiiMtS7t7OfpXWTlaeGMwX8U6EFvPV/YWWEKRkS8hKS4k60WHTOg==
 
+print-js@^1.6.0:
+  version "1.6.0"
+  resolved "https://registry.npmjs.org/print-js/-/print-js-1.6.0.tgz"
+  integrity sha512-BfnOIzSKbqGRtO4o0rnj/K3681BSd2QUrsIZy/+WdCIugjIswjmx3lDEZpXB2ruGf9d4b3YNINri81+J0FsBWg==
+
 proc-log@^3.0.0:
   version "3.0.0"
   resolved "https://registry.npmjs.org/proc-log/-/proc-log-3.0.0.tgz"
@@ -7064,7 +7069,7 @@ vue-select@^4.0.0-beta.6:
   resolved "https://registry.npmjs.org/vue-select/-/vue-select-4.0.0-beta.6.tgz"
   integrity sha512-K+zrNBSpwMPhAxYLTCl56gaMrWZGgayoWCLqe5rWwkB8aUbAUh7u6sXjIR7v4ckp2WKC7zEEUY27g6h1MRsIHw==
 
-vue@^3.2.0, vue@^3.2.45:
+vue@^3.0.5, vue@^3.2.0, vue@^3.2.45:
   version "3.2.45"
   resolved "https://registry.npmjs.org/vue/-/vue-3.2.45.tgz"
   integrity sha512-9Nx/Mg2b2xWlXykmCwiTUCWHbWIj53bnkizBxKai1g61f2Xit700A1ljowpTIM11e3uipOeiPcSqnmBg6gyiaA==
@@ -7084,6 +7089,13 @@ vue3-form-wizard@^0.2.1:
   version "0.2.1"
   resolved "https://registry.npmjs.org/vue3-form-wizard/-/vue3-form-wizard-0.2.1.tgz"
   integrity sha512-BpTEw5DWH0kNDuBB3aablT2jcH9iPBHxgdQ59Ve06XfaEwhqae47xXx1wRdC04E6CLZxHiTWHh3Xy/oNGGdObA==
+
+vue3-print-nb@^0.1.4:
+  version "0.1.4"
+  resolved "https://registry.npmjs.org/vue3-print-nb/-/vue3-print-nb-0.1.4.tgz"
+  integrity sha512-LExI7viEzplR6ZKQ2b+V4U0cwGYbVD4fut/XHvk3UPGlT5CcvIGs6VlwGp107aKgk6P8Pgx4rco3Rehv2lti3A==
+  dependencies:
+    vue "^3.0.5"
 
 walk-up-path@^3.0.1:
   version "3.0.1"

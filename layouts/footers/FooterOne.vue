@@ -1,5 +1,5 @@
 <template>
-  <footer>
+  <footer class="no-print">
     <div
       :class="`footer__area ${style_2 ? 'footer__style-3' : ''}`"
       :data-bg-color="`footer-bg-${style_2 ? 'grey-4' : 'black'}`"
@@ -11,18 +11,12 @@
               <div class="footer__widget footer__widget-5 mb-50 footer-col-5-1">
                 <div class="footer__widget-content">
                   <div class="footer__info">
-                    <h4>
-                      ศูนย์ปฏิบัติการเทคโนโลยีอิเล็กทรอนิกส์อัจฉริยะและนวัตกรรมดิจิทัล
-                    </h4>
-                    <h4>อุทยานเทคโนโลยี มจพ.</h4>
+                    <h4>เติมรัก รับส่งพัสดุ</h4>
 
                     <p style="font-size: 1em">
-                      <span>
-                        Technology Center For Smart Electronic and Digital
-                        Innovation
-                      </span>
+                      <span> Termrak </span>
                       <br />
-                      <span>Technopark KMUTNB</span>
+                      <span>Termrak</span>
                     </p>
 
                     <p style="font-size: 1em">

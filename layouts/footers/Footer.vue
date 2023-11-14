@@ -1,5 +1,5 @@
 <template>
-  <footer>
+  <footer class="no-print">
     <div class="footer__area" data-bg-color="footer-bg">
       <div class="footer__top">
         <div class="container">
