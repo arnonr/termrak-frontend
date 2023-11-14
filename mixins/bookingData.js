@@ -172,18 +172,23 @@ export default {
           name: "Ninja",
         },
         {
-            id: 3,
-            value: 3,
-            name: "DHL",
-          },
+          id: 3,
+          value: 3,
+          name: "DHL",
+        },
         {
           id: 4,
           value: 4,
-          name: "Flash",
+          name: "Shopee",
         },
         {
           id: 5,
           value: 5,
+          name: "Flash",
+        },
+        {
+          id: 6,
+          value: 6,
           name: "EMS",
         },
       ],
